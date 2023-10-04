@@ -1,0 +1,17 @@
+{
+  "name": "midterm1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watchCSS": "npx tailwindcss -i ./tailwind_config.css -o ./tailwind.css --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  },
+  "dependencies": {
+    "flowbite": "^1.8.1"
+  }
+}
