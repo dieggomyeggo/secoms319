@@ -1,6 +1,6 @@
-const navbarToggleButton = document.getElementById("navbar-toggle-button")
-const navbarMenuItems = document.getElementById("navbar-menu-items")
-
+const navbarToggleButton = document.getElementById("navbar-toggle-button");
+const navbarMenuItems = document.getElementById("navbar-menu-items");
+const workouts = document.getElementById("workouts");
 
 // menuButton.addEventListener('click', function () {
 //     let classList = document.getElementById('nav').classList
@@ -8,7 +8,8 @@ const navbarMenuItems = document.getElementById("navbar-menu-items")
 //     classList.toggle('block')
 //   })
 navbarToggleButton.addEventListener("click", () => {
-    console.log("TEST")
-    navbarMenuItems.classList.toggle("hidden")
+  console.log("TEST");
+  navbarMenuItems.classList.toggle("hidden");
+});
 
-})
+workouts.appendChild();
