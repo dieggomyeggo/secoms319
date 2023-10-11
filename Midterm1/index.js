@@ -1,10 +1,12 @@
 const navbarToggleButton = document.getElementById("navbar-toggle-button")
 const navbarMenuItems = document.getElementById("navbar-menu-items")
 
-navbarToggleButton.addEventListener("click", () => {
-    console.log("TEST")
-    navbarMenuItems.classList.toggle("hidden")
+const workouts = document.getElementById("workouts");
 
+menuButton.addEventListener('click', function () {
+    let classList = document.getElementById('nav').classList
+    classList.toggle('hidden')
+    classList.toggle('block')
 })
 
 const fetchWorkouts = async () => {
@@ -15,3 +17,4 @@ const fetchWorkouts = async () => {
 const [push, pull, legs] = await fetchWorkouts()
 
 
+// workouts.appendChild();
