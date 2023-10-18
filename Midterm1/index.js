@@ -15,33 +15,57 @@ const workouts = await fetchWorkouts();
 workouts.forEach((category, i) => {
     const section = document.getElementById(`${i}`);
     const gridContainer = document.createElement("div");
-    gridContainer.className = "grid grid-cols-2 gap-4";
+    gridContainer.className = "grid grid-cols-1 lg:grid-cols-2 gap-4";
     category.forEach((workout) => {
         const card = document.createElement("div");
-        const a = document.createElement("a");
+        card.className =
+            "block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray";
+
         const video = document.createElement("video");
         video.autoplay = true;
         video.loop = true;
+        video.src = workout.video;
+
+        card.appendChild(video);
+
+
+        const desc = document.createElement("div");
+        desc.className = "p-4";
+
         const heading = document.createElement("h1");
         heading.className =
             "mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white";
 
         heading.textContent = workout.name;
-        video.src = workout.video;
-        a.appendChild(video);
+        desc.appendChild(heading);
 
-        card.appendChild(a);
-        card.appendChild(heading);
+        const ul = document.createElement("ul");
+        ul.className = "list-disc list-inside"
 
         workout.steps.forEach((step) => {
-            const p = document.createElement("p");
-            p.textContent = step;
-            p.className =
-                "mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400 ";
-            card.appendChild(p);
+            const li = document.createElement("li");
+            li.textContent = step;
+            li.className =
+                "text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 ";
+            ul.appendChild(li);
         });
-        card.className =
-            "block max-w  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray";
+
+        desc.appendChild(ul);
+
+        const linkToMoreInfo = document.createElement("a");
+        linkToMoreInfo.href = `./inspect.html?=${workout.id}`;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "mt-4 p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        button.innerText = "More info"
+
+        linkToMoreInfo.appendChild(button)
+
+        desc.appendChild(linkToMoreInfo);
+
+        card.appendChild(desc);
+
         gridContainer.appendChild(card);
 
         section.appendChild(gridContainer);

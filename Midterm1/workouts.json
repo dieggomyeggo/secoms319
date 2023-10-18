@@ -1,15 +1,18 @@
 [
   [
     {
+      "id": 1,
       "name": "Bench Press",
       "steps": [
         "Lay flat on the bench with your feet on the ground. With straight arms unrack the bar.",
         "Lower the bar to your mid chest",
         "Raise the bar until you've locked your elbows."
       ],
+      "difficulty": 1,
       "video": "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-bench-press-front.mp4"
     },
     {
+      "id": 2,
       "name": "Push Up",
       "steps": [
         "Place your hands firmly on the ground, directly under shoulders.",
@@ -17,11 +20,13 @@
         "Draw shoulder blades back and down, keeping elbows tucked close to your body",
         "Exhale as you push back to the starting position."
       ],
+      "difficulty": 2,
       "video": "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-pushup-front.mp4#t=0.1"
     }
   ],
   [
     {
+      "id": 3,
       "name": "Deadlift",
       "steps": [
         "Stand with a barbell at your shins with your feet shoulder width apart.",
@@ -30,20 +35,24 @@
         "From the standing position, lower the weight in a controlled manner.",
         "You can either lower the weight to the floor or before you touch the floor, depending on your mobility."
       ],
+      "difficulty": 1,
       "video": "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-stiff-leg-deadlift-front.mp4#t=0.1"
     },
     {
+      "id": 4,
       "name": "Pull Up",
       "steps": [
         "Grasp the bar with an overhand grip, arms and shoulders fully extended.",
         "Pull your body up until your chin is above the bar.",
         "Lower your body back to starting position."
       ],
+      "difficulty": 3,
       "video": "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-pullup-front.mp4#t=0.1"
     }
   ],
   [
     {
+      "id": 5,
       "name": "Squat",
       "steps": [
         "Stand with your feet shoulder width apart.",
@@ -52,9 +61,11 @@
         "Return to starting position.",
         "You can either lower the weight to the floor or before you touch the floor, depending on your mobility."
       ],
+      "difficulty": 2,
       "video": "https://media.musclewiki.com/media/uploads/videos/branded/male-Barbell-barbell-high-bar-squat-side.mp4#t=0.1"
     },
     {
+      "id": 6,
       "name": "Lunge",
       "steps": [
         "Step forward with one leg.",
@@ -62,6 +73,7 @@
         "Ensure you remain upright, and your front knee stay above the front foot.",
         "    Push off the floor with your front foot until you return to the starting position. Switch legs."
       ],
+      "difficulty": 1,
       "video": "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-forward-lunge-front.mp4#t=0.1"
     }
   ]
