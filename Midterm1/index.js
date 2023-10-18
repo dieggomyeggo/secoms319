@@ -19,7 +19,7 @@ workouts.forEach((category, i) => {
     category.forEach((workout) => {
         const card = document.createElement("div");
         card.className =
-            "block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray";
+            "block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray overflow-hidden";
 
         const video = document.createElement("video");
         video.autoplay = true;
