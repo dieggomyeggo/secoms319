@@ -5,3 +5,13 @@ navbarToggleButton.addEventListener("click", function () {
     classList.toggle("hidden");
     classList.toggle("block");
 });
+
+const workouts = await fetch("./workouts.json").then((res) => res.json());
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id")
+
+const workout = workouts.flat().find((workout) => workout.id == id);
+
+const nameElement = document.getElementById("workout-name");
+nameElement.textContent = workout.name;
