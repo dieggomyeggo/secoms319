@@ -16,6 +16,22 @@ const workout = workouts.flat().find((workout) => workout.id == id);
 const nameElement = document.getElementById("workout-name");
 nameElement.textContent = workout.name;
 
+const workoutDifficulityElement = document.getElementById("workout-difficulty");
+switch (workout.difficulty) {
+  case 1:
+    workoutDifficulityElement.textContent = "Beginner";
+    workoutDifficulityElement.classList.add("bg-green-200");
+    break;
+  case 2:
+    workoutDifficulityElement.textContent = "Intermediate";
+    workoutDifficulityElement.classList.add("bg-yellow-200");
+    break;
+  default:
+    workoutDifficulityElement.textContent = "Expert";
+    workoutDifficulityElement.classList.add("bg-red-200");
+    break;
+}
+
 const videoElement = document.getElementById("workout-video");
 console.log(workout.video);
 videoElement.src = workout.video;

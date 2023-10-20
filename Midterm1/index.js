@@ -35,7 +35,7 @@ workouts.forEach((category, i) => {
         desc.appendChild(heading);
 
         const linkToMoreInfo = document.createElement("a");
-        linkToMoreInfo.href = new URL(window.location) + `/inspect?id=${workout.id}`
+        linkToMoreInfo.href = new URL(window.location) + `/inspect.html?id=${workout.id}`
         linkToMoreInfo.className = "inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700"
         linkToMoreInfo.textContent = "More Info >"
 
