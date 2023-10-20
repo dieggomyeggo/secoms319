@@ -6,11 +6,7 @@ navbarToggleButton.addEventListener("click", function () {
     classList.toggle("block");
 });
 
-const fetchWorkouts = async () => {
-    return await fetch("./workouts.json").then((res) => res.json());
-};
-
-const workouts = await fetchWorkouts();
+const workouts = await fetch("./workouts.json").then((res) => res.json());;
 
 workouts.forEach((category, i) => {
     const section = document.getElementById(`${i}`);
@@ -52,7 +48,7 @@ workouts.forEach((category, i) => {
         desc.appendChild(ul);
 
         const linkToMoreInfo = document.createElement("a");
-        linkToMoreInfo.href = `./inspect.html?=${workout.id}`;
+        linkToMoreInfo.href = `./inspect.html?id=${workout.id}`;
 
         const button = document.createElement("button");
         button.type = "button";
