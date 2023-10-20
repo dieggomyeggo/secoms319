@@ -34,28 +34,10 @@ workouts.forEach((category, i) => {
         heading.textContent = workout.name;
         desc.appendChild(heading);
 
-        const ul = document.createElement("ul");
-        ul.className = "list-disc list-outside ml-5"
-
-        workout.steps.forEach((step) => {
-            const li = document.createElement("li");
-            li.textContent = step;
-            li.className =
-                "text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 ";
-            ul.appendChild(li);
-        });
-
-        desc.appendChild(ul);
-
         const linkToMoreInfo = document.createElement("a");
         linkToMoreInfo.href = `./inspect.html?id=${workout.id}`;
-
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "mt-4 p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        button.innerText = "More info"
-
-        linkToMoreInfo.appendChild(button)
+        linkToMoreInfo.className = "inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700"
+        linkToMoreInfo.textContent = "More Info >"
 
         desc.appendChild(linkToMoreInfo);
 
