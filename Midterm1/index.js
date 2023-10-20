@@ -28,7 +28,6 @@ workouts.forEach((category, i) => {
 
         card.appendChild(video);
 
-
         const desc = document.createElement("div");
         desc.className = "p-4";
 
@@ -40,7 +39,7 @@ workouts.forEach((category, i) => {
         desc.appendChild(heading);
 
         const ul = document.createElement("ul");
-        ul.className = "list-disc list-inside"
+        ul.className = "list-disc list-outside ml-5"
 
         workout.steps.forEach((step) => {
             const li = document.createElement("li");
