@@ -6,11 +6,7 @@ navbarToggleButton.addEventListener("click", function () {
     classList.toggle("block");
 });
 
-const fetchWorkouts = async () => {
-    return await fetch("./workouts.json").then((res) => res.json());
-};
-
-const workouts = await fetchWorkouts();
+const workouts = await fetch("./workouts.json").then((res) => res.json());;
 
 workouts.forEach((category, i) => {
     const section = document.getElementById(`${i}`);
@@ -19,7 +15,7 @@ workouts.forEach((category, i) => {
     category.forEach((workout) => {
         const card = document.createElement("div");
         card.className =
-            "block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray";
+            "block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-800 overflow-hidden";
 
         const video = document.createElement("video");
         video.autoplay = true;
@@ -27,7 +23,6 @@ workouts.forEach((category, i) => {
         video.src = workout.video;
 
         card.appendChild(video);
-
 
         const desc = document.createElement("div");
         desc.className = "p-4";
@@ -39,28 +34,10 @@ workouts.forEach((category, i) => {
         heading.textContent = workout.name;
         desc.appendChild(heading);
 
-        const ul = document.createElement("ul");
-        ul.className = "list-disc list-inside"
-
-        workout.steps.forEach((step) => {
-            const li = document.createElement("li");
-            li.textContent = step;
-            li.className =
-                "text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 ";
-            ul.appendChild(li);
-        });
-
-        desc.appendChild(ul);
-
         const linkToMoreInfo = document.createElement("a");
-        linkToMoreInfo.href = `./inspect.html?=${workout.id}`;
-
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "mt-4 p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        button.innerText = "More info"
-
-        linkToMoreInfo.appendChild(button)
+        linkToMoreInfo.href = `./inspect.html?id=${workout.id}`
+        linkToMoreInfo.className = "inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700"
+        linkToMoreInfo.textContent = "More Info >"
 
         desc.appendChild(linkToMoreInfo);
 

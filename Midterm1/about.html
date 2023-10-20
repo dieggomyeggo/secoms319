@@ -1,150 +1,99 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About</title>
-    <link href="./tailwind.css" rel="stylesheet" />
-    <script type="module" src="./about.js" defer></script>
-  </head>
 
-  <body>
-    <nav
-      id="navbar-toggle-button"
-      class="sticky top-0 border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
-    >
-      <div
-        class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
-      >
-        <a href="./" class="flex items-center">
-          <span
-            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-            >MuscleMapper</span
-          >
-        </a>
-        <button
-          id="navbar-toggle-button"
-          type="button"
-          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-        >
-          <span class="sr-only">Open main menu</span>
-          <svg
-            class="w-5 h-5"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 17 14"
-          >
-            device-width
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 1h15M1 7h15M1 13h15"
-            />
-          </svg>
-        </button>
-        <div class="hidden w-full md:block md:w-auto" id="navbar-menu-items">
-          <ul
-            class="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700"
-            id="nav-items-list"
-          >
-            <li>
-              <a
-                href="./index.html#0"
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >Push</a
-              >
-            </li>
-            <li>
-              <a
-                href="./index.html#1"
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >Pull</a
-              >
-            </li>
-            <li>
-              <a
-                href="./index.html#2"
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >Legs</a
-              >
-            </li>
-            <li>
-              <a
-                href="./about.html"
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >About</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <header class="bg-white shadow">
-      <div
-        class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
-      >
-        <h1 class="text-5xl font-bold tracking-tight text-gray-900">About</h1>
-      </div>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About</title>
+  <link href="./tailwind.css" rel="stylesheet" />
+  <script type="module" src="./about.js" defer></script>
+</head>
 
-    <div class="p-5 grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div
-        class="p-5 lg:col-span-2 block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray"
-      >
-        <h2
-          style="text-align: center"
-          class="text-xl font-extrabold dark:text-white"
-        >
-          COM S 319
-        </h2>
+<body class="dark:bg-slate-700">
+  <nav id="navbar-toggle-button" class="sticky top-0 border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a href="./" class="flex items-center">
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">MuscleMapper</span>
+      </a>
+      <button id="navbar-toggle-button" type="button"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+          device-width
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15" />
+        </svg>
+      </button>
+      <div class="hidden w-full md:block md:w-auto" id="navbar-menu-items">
         <ul
-          class="max-w-md space-y-1 text-gray-500 list-none list-inside dark:text-gray-400"
-        >
+          class="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700"
+          id="nav-items-list">
           <li>
-            <p class="lead text-body-secondary">
-              COM S 319: Construction of User Interfaces
-            </p>
+            <a href="./index.html#0"
+              class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Push</a>
           </li>
           <li>
-            <p class="lead text-body-secondary">Date: October 18, 2023</p>
+            <a href="./index.html#1"
+              class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pull</a>
           </li>
           <li>
-            <p class="lead text-body-secondary">Professor: Abraham Aldaco</p>
+            <a href="./index.html#2"
+              class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Legs</a>
+          </li>
+          <li>
+            <a href="./about.html"
+              class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
           </li>
         </ul>
       </div>
-      <div
-        class="p-5 block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray"
-      >
-        <img
-          class="rounded-full w-96 h-96 p-5"
-          src="./images/photoDiego.jpg"
-          alt="diego"
-        />
-
-        <p class="text-sm font-semibold leading-6 text-gray-900">Diego Perez</p>
-        <p class="mt-1 truncate text-xs leading-5 text-gray-500">
-          joceo@iastate.edu
-        </p>
-      </div>
-
-      <div
-        class="p-5 block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray"
-      >
-        <img
-          class="rounded-full w-96 h-96 p-5"
-          src="./images/photoDuba.jpg"
-          alt="diego"
-        />
-
-        <p class="text-sm font-semibold leading-6 text-gray-900">Jacob Duba</p>
-        <p class="mt-1 truncate text-xs leading-5 text-gray-500">
-          jduba@iastate.edu
-        </p>
-      </div>
     </div>
-  </body>
+  </nav>
+  <header class="bg-white dark:bg-slate-700 shadow">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <h1 class="text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100">About</h1>
+    </div>
+  </header>
+
+  <div class="p-5 grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div
+      class="p-5 lg:col-span-2 block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-slate-900">
+      <h2 style="text-align: center" class="text-xl font-extrabold dark:text-white">
+        COM S 319
+      </h2>
+      <ul class="max-w-md space-y-1 text-gray-500 list-none list-inside dark:text-gray-400">
+        <li>
+          <p class="lead text-body-secondary">
+            COM S 319: Construction of User Interfaces
+          </p>
+        </li>
+        <li>
+          <p class="lead text-body-secondary">Date: October 18, 2023</p>
+        </li>
+        <li>
+          <p class="lead text-body-secondary">Professor: Abraham Aldaco</p>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="p-5 block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-slate-900">
+      <img class="rounded-full w-96 h-96 p-5" src="./images/photoDiego.jpg" alt="diego" />
+
+      <p class="text-sm font-semibold leading-6 dark:text-white text-gray-900">Diego Perez</p>
+      <p class="mt-1 truncate text-xs leading-5 text-gray-500 dark:text-gray-200">
+        joceo@iastate.edu
+      </p>
+    </div>
+
+    <div
+      class="p-5 block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-slate-900">
+      <img class="rounded-full w-96 h-96 p-5" src="./images/photoDuba.jpg" alt="diego" />
+
+      <p class="text-sm font-semibold leading-6 dark:text-white text-gray-900">Jacob Duba</p>
+      <p class="mt-1 truncate text-xs leading-5 text-gray-500 dark:text-gray-200">
+        jduba@iastate.edu
+      </p>
+    </div>
+  </div>
+</body>
+
 </html>
