@@ -15,7 +15,7 @@ workouts.forEach((category, i) => {
     category.forEach((workout) => {
         const card = document.createElement("div");
         card.className =
-            "block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray overflow-hidden";
+            "block max-w bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-800 overflow-hidden";
 
         const video = document.createElement("video");
         video.autoplay = true;
@@ -35,7 +35,7 @@ workouts.forEach((category, i) => {
         desc.appendChild(heading);
 
         const linkToMoreInfo = document.createElement("a");
-        linkToMoreInfo.href = new URL(window.location) + `/inspect.html?id=${workout.id}`
+        linkToMoreInfo.href = `./inspect.html?id=${workout.id}`
         linkToMoreInfo.className = "inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700"
         linkToMoreInfo.textContent = "More Info >"
 
