@@ -16,6 +16,7 @@ const workout = workouts.flat().find((workout) => workout.id == id);
 const nameElement = document.getElementById("workout-name");
 nameElement.textContent = workout.name;
 
+document.title = workout.name;
 const workoutDifficulityElement = document.getElementById("workout-difficulty");
 switch (workout.difficulty) {
   case 1:
