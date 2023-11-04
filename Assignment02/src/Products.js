@@ -9,7 +9,8 @@ export const Products = [
         "rating": {
             "rate": 3.9,
             "count": 120
-        }
+        },
+        amount: 0
     },
     {
         "id": 2,
@@ -21,7 +22,8 @@ export const Products = [
         "rating": {
             "rate": 4.1,
             "count": 259
-        }
+        },
+        amount: 0
     },
     {
         "id": 3,
@@ -33,7 +35,8 @@ export const Products = [
         "rating": {
             "rate": 4.7,
             "count": 500
-        }
+        },
+        amount: 0
     },
     {
         "id": 4,
@@ -45,7 +48,8 @@ export const Products = [
         "rating": {
             "rate": 2.1,
             "count": 430
-        }
+        },
+        amount: 0
     },
     {
         "id": 5,
@@ -57,7 +61,8 @@ export const Products = [
         "rating": {
             "rate": 4.6,
             "count": 400
-        }
+        },
+        amount: 0
     },
     {
         "id": 6,
@@ -69,7 +74,8 @@ export const Products = [
         "rating": {
             "rate": 3.9,
             "count": 70
-        }
+        },
+        amount: 0
     },
     {
         "id": 7,
@@ -81,7 +87,8 @@ export const Products = [
         "rating": {
             "rate": 3,
             "count": 400
-        }
+        },
+        amount: 0
     },
     {
         "id": 8,
@@ -93,7 +100,8 @@ export const Products = [
         "rating": {
             "rate": 1.9,
             "count": 100
-        }
+        },
+        amount: 0
     },
     {
         "id": 9,
@@ -105,7 +113,8 @@ export const Products = [
         "rating": {
             "rate": 3.3,
             "count": 203
-        }
+        },
+        amount: 0
     },
     {
         "id": 10,
@@ -117,7 +126,8 @@ export const Products = [
         "rating": {
             "rate": 2.9,
             "count": 470
-        }
+        },
+        amount: 0
     },
     {
         "id": 11,
@@ -129,7 +139,8 @@ export const Products = [
         "rating": {
             "rate": 4.8,
             "count": 319
-        }
+        },
+        amount: 0
     },
     {
         "id": 12,
@@ -141,7 +152,8 @@ export const Products = [
         "rating": {
             "rate": 4.8,
             "count": 400
-        }
+        },
+        amount: 0
     },
     {
         "id": 13,
@@ -153,7 +165,8 @@ export const Products = [
         "rating": {
             "rate": 2.9,
             "count": 250
-        }
+        },
+        amount: 0
     },
     {
         "id": 14,
@@ -165,7 +178,8 @@ export const Products = [
         "rating": {
             "rate": 2.2,
             "count": 140
-        }
+        },
+        amount: 0
     },
     {
         "id": 15,
@@ -177,7 +191,8 @@ export const Products = [
         "rating": {
             "rate": 2.6,
             "count": 235
-        }
+        },
+        amount: 0
     },
     {
         "id": 16,
@@ -189,7 +204,8 @@ export const Products = [
         "rating": {
             "rate": 2.9,
             "count": 340
-        }
+        },
+        amount: 0
     },
     {
         "id": 17,
@@ -201,7 +217,8 @@ export const Products = [
         "rating": {
             "rate": 3.8,
             "count": 679
-        }
+        },
+        amount: 0
     },
     {
         "id": 18,
@@ -213,7 +230,8 @@ export const Products = [
         "rating": {
             "rate": 4.7,
             "count": 130
-        }
+        },
+        amount: 0
     },
     {
         "id": 19,
@@ -225,7 +243,8 @@ export const Products = [
         "rating": {
             "rate": 4.5,
             "count": 146
-        }
+        },
+        amount: 0
     },
     {
         "id": 20,
@@ -237,6 +256,7 @@ export const Products = [
         "rating": {
             "rate": 3.6,
             "count": 145
-        }
+        },
+        amount: 0
     }
 ]
