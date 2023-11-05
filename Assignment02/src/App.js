@@ -31,6 +31,7 @@ function App() {
 
   const [search, setSearch] = useState("");
   const [cart, setCart] = useState(new Map())
+  const [total, setTotal] = useState(0)
 
 
 
@@ -64,9 +65,30 @@ function App() {
 
 
           }
+          <div className="grid grid-cols-3 gap-4 flex-wrap">
+            <div className="col-span-2" >
+              <Typography>
+                {`TOTAL(Before tax): `}
+              </Typography>
+            </div>
+
+            <Typography>
+              {`$${total.toFixed(2)}`}
+            </Typography>
+            <div className="col-span-2" >
+              <Typography>
+                {`TOTAL(After tax): `}
+              </Typography>
+            </div>
+
+            <Typography>
+              {`$${(total * 1.07).toFixed(2)}`}
+            </Typography>
+
+          </div>
           <Button variant="contained">CONFIRM</Button>
-        </Box>
-      </Modal>
+        </Box >
+      </Modal >
       <div className="h-full w-96 fixed left-0 top-0 bottom-0 bg-slate-200 p-4">
         <h1 class="text-2xl text-slate-800 font-bold text-center">Assignment 2: Store</h1>
         <input class="bg-slate-300 w-full p-3 text-slate-800 rounded-lg mt-2 mb-2"
@@ -111,8 +133,10 @@ function App() {
                     } else {
                       newCart.set(product.title, 1)
                     }
+                    setTotal(total + product.price)
                     setCart(newCart)
                   }}>
+                  +
                 </button>
                 <div className="bg-slate-200 rounded-md p-3">{product.amount}</div>
                 <button className="bg-slate-600 text-white p-3 rounded-md hover:bg-slate-400"
@@ -124,10 +148,12 @@ function App() {
                     } else {
                       newCart.delete(product.title)
                     }
+                    setTotal(total > 0 ? total - product.price : 0)
                     setCart(newCart)
 
                   }
                   }>
+                  -
                 </button>
               </div>
             </div>
@@ -135,7 +161,7 @@ function App() {
         })
         }
       </div>
-    </div>
+    </div >
   );
 }
 
