@@ -34,6 +34,11 @@ function App() {
     p: 4,
   };
 
+  const resetCart = () => {
+    setOpenCart(false);
+    clearInfo();
+  }
+
   const setCartAmount = (index, amount) => {
     // JSON.parase(JSON.stringify()) is a trick to deep copy an object
     if (amount < 0) return;
@@ -125,7 +130,11 @@ function App() {
               />
             </FormControl>
           </div>
-          <Button disabled={address == "" || email === "" || creditCard === ""} onClick={() => { setConfirmOrder(true); setOpenCart(false) }} variant="contained">CONFIRM</Button>
+          <div className='grid grid-cols-3'>
+            <Button disabled={address == "" || email === "" || creditCard === ""} onClick={() => { setConfirmOrder(true); setOpenCart(false) }} variant="contained">CONFIRM</Button>
+            <div/>
+            <Button onClick={() => resetCart() }variant="contained"> Return </Button>
+          </div>
         </Box >
       </Modal >
       <Modal
@@ -160,9 +169,9 @@ function App() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <Typography align="center">
-          YIPEE!
-        </Typography>
+          <Typography align="center">
+            YIPEE!
+          </Typography>
         </Box>
       </Modal >
 
