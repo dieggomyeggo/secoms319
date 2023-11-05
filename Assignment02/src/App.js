@@ -34,6 +34,17 @@ function App() {
     p: 4,
   };
 
+  const isNumeric = (n) => {
+    return !isNaN(n);
+  }
+
+  const validateEmail = (input) => {
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return input.match(validRegex);
+
+    }
+  
+
   const resetCart = () => {
     setOpenCart(false);
     clearInfo();
@@ -109,22 +120,46 @@ function App() {
             <FormControl >
               <TextField
                 required
-                id="filled-required"
+                id="cc-required"
                 label="Credit card"
                 variant="filled"
-                onChange={(e) => setCreditCard(e.target.value)}
+                onChange={(e) => { setCreditCard(e.target.value); console.log(creditCard.length) }}
+                error={creditCard.length != 0 && (!isNumeric(creditCard) || creditCard.length !== 16)}
               />
               <TextField
                 required
-                id="filled-required"
+                id="email-required"
                 label="Email"
                 variant="filled"
                 onChange={(e) => setEmail(e.target.value)}
+                error = {email.length != 0 && !validateEmail(email)}
               />
               <TextField
                 required
-                id="filled-required"
-                label="Shipping Address"
+                id="address-required"
+                label="Street Address"
+                variant="filled"
+                onChange={(e) => setAddress(e.target.value)}
+              />
+
+              <TextField
+                required
+                id="address-required"
+                label="City"
+                variant="filled"
+                onChange={(e) => setAddress(e.target.value)}
+              />
+              <TextField
+                required
+                id="address-required"
+                label="State"
+                variant="filled"
+                onChange={(e) => setAddress(e.target.value)}
+              />
+              <TextField
+                required
+                id="address-required"
+                label="Zip Code"
                 variant="filled"
                 onChange={(e) => setAddress(e.target.value)}
               />
@@ -132,8 +167,8 @@ function App() {
           </div>
           <div className='grid grid-cols-3'>
             <Button disabled={address == "" || email === "" || creditCard === ""} onClick={() => { setConfirmOrder(true); setOpenCart(false) }} variant="contained">CONFIRM</Button>
-            <div/>
-            <Button onClick={() => resetCart() }variant="contained"> Return </Button>
+            <div />
+            <Button onClick={() => resetCart()} variant="contained"> Return </Button>
           </div>
         </Box >
       </Modal >
