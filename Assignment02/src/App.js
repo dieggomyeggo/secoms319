@@ -20,6 +20,7 @@ function App() {
   const [creditCard, setCreditCard] = useState("")
   const [email, setEmail] = useState("")
   const [address, setAddress] = useState("")
+  const [zipCode, setZipCode] = useState("")
 
 
   const style = {
@@ -161,7 +162,8 @@ function App() {
                 id="address-required"
                 label="Zip Code"
                 variant="filled"
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={(e) => setZipCode(e.target.value)}
+                error={zipCode.length > 0 && (zipCode.length !== 5 || !isNumeric(zipCode))}
               />
             </FormControl>
           </div>
