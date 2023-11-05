@@ -1,13 +1,27 @@
 import { Products } from './Products';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel'
+import Input from '@mui/material/Input'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import Button from '@mui/material/Button'
+import { FormHelperText, TextField } from '@mui/material';
 
 function App() {
   const [products, setProducts] = useState(Products);
-  const [open, setOpen] = useState(false);
+  const [openCart, setOpenCart] = useState(false);
+  const [yipee, setYipee] = useState(false);
+  const [confirmOrder, setConfirmOrder] = useState(false);
+  const [search, setSearch] = useState("");
+  const [cart, setCart] = useState(new Map())
+  const [total, setTotal] = useState(0)
+  const [creditCard, setCreditCard] = useState("")
+  const [email, setEmail] = useState("")
+  const [address, setAddress] = useState("")
+
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -29,17 +43,19 @@ function App() {
     setProducts(newProduct);
   }
 
-  const [search, setSearch] = useState("");
-  const [cart, setCart] = useState(new Map())
-  const [total, setTotal] = useState(0)
+  const clearInfo = () => {
+    setCreditCard("")
+    setAddress("")
+    setEmail("")
+  }
 
 
 
   return (
     <div>
       <Modal
-        open={open}
-        onClose={() => setOpen(false)}
+        open={openCart}
+        onClose={() => { setOpenCart(false); clearInfo() }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -62,8 +78,6 @@ function App() {
                 )
               }
             })
-
-
           }
           <div className="grid grid-cols-3 gap-4 flex-wrap">
             <div className="col-span-2" >
@@ -84,18 +98,81 @@ function App() {
             <Typography>
               {`$${(total * 1.07).toFixed(2)}`}
             </Typography>
-
           </div>
-          <Button variant="contained">CONFIRM</Button>
+
+          <div style={{ margin: 10 }}>
+            <FormControl >
+              <TextField
+                required
+                id="filled-required"
+                label="Credit card"
+                variant="filled"
+                onChange={(e) => setCreditCard(e.target.value)}
+              />
+              <TextField
+                required
+                id="filled-required"
+                label="Email"
+                variant="filled"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                required
+                id="filled-required"
+                label="Shipping Address"
+                variant="filled"
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </FormControl>
+          </div>
+          <Button disabled={address == "" || email === "" || creditCard === ""} onClick={() => { setConfirmOrder(true); setOpenCart(false) }} variant="contained">CONFIRM</Button>
         </Box >
       </Modal >
+      <Modal
+        open={confirmOrder}
+        onClose={() => { clearInfo(); setConfirmOrder(false) }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+
+          <Typography> YIPEE</Typography>
+
+          <div className="grid grid-cols-3 gap-4 flex-wrap">
+            <div className="col-span-2" >
+              <Typography>
+                {`TOTAL(After tax): `}
+              </Typography>
+            </div>
+
+            <Typography>
+              {`$${(total * 1.07).toFixed(2)}`}
+            </Typography>
+
+          </div>
+          <Button onClick={() => { setConfirmOrder(false); setYipee(true) }} variant="contained">ORDER</Button>
+        </Box >
+      </Modal >
+      <Modal
+        open={yipee}
+        onClose={() => { clearInfo(); setYipee(false) }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+        <Typography align="center">
+          YIPEE!
+        </Typography>
+        </Box>
+      </Modal >
+
       <div className="h-full w-96 fixed left-0 top-0 bottom-0 bg-slate-200 p-4">
         <h1 class="text-2xl text-slate-800 font-bold text-center">Assignment 2: Store</h1>
         <input class="bg-slate-300 w-full p-3 text-slate-800 rounded-lg mt-2 mb-2"
           placeholder='Search this store...' onChange={(input) => {
             setSearch(input.target.value)
           }}></input>
-        <button onClick={() => setOpen(true)}
+        <button onClick={() => setOpenCart(true)}
           className="bg-blue-600 p-3 text-lg text-white rounded-lg hover:bg-blue-500 w-full">Checkout
         </button>
       </div>
