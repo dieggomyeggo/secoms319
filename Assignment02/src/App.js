@@ -21,6 +21,25 @@ function App() {
   const [email, setEmail] = useState("")
   const [address, setAddress] = useState("")
   const [zipCode, setZipCode] = useState("")
+  const [state, setState] = useState("")
+  const [city, setCity] = useState("")
+
+  const validateForm = () => {
+    return validCreditCard() && validZipCode() && validateEmail(email) && validString(address) && validString(city) && validString(state);
+  }
+
+  const validCreditCard = () => {
+    return creditCard.length != 0 && (isNumeric(creditCard) && creditCard.length === 16)
+  }
+
+  const validZipCode = () => {
+    return zipCode.length > 0 && (zipCode.length === 5 && isNumeric(zipCode))
+  }
+
+  const validString = (s) => {
+    return s.length !== 0
+  }
+
 
 
   const style = {
@@ -41,10 +60,11 @@ function App() {
 
   const validateEmail = (input) => {
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    console.log(input.match(validRegex) != null)
     return input.match(validRegex);
 
-    }
-  
+  }
+
 
   const resetCart = () => {
     setOpenCart(false);
@@ -118,14 +138,14 @@ function App() {
           </div>
 
           <div style={{ margin: 10 }}>
-            <FormControl >
+            <FormControl>
               <TextField
                 required
                 id="cc-required"
                 label="Credit card"
                 variant="filled"
-                onChange={(e) => { setCreditCard(e.target.value); console.log(creditCard.length) }}
-                error={creditCard.length != 0 && (!isNumeric(creditCard) || creditCard.length !== 16)}
+                onChange={(e) => { setCreditCard(e.target.value); }}
+                error={!validCreditCard()}
               />
               <TextField
                 required
@@ -133,13 +153,14 @@ function App() {
                 label="Email"
                 variant="filled"
                 onChange={(e) => setEmail(e.target.value)}
-                error = {email.length != 0 && !validateEmail(email)}
+                error={email.length != 0 && !validateEmail(email)}
               />
               <TextField
                 required
                 id="address-required"
                 label="Street Address"
                 variant="filled"
+                error={address.length === 0}
                 onChange={(e) => setAddress(e.target.value)}
               />
 
@@ -148,14 +169,16 @@ function App() {
                 id="address-required"
                 label="City"
                 variant="filled"
-                onChange={(e) => setAddress(e.target.value)}
+                error={city.length === 0}
+                onChange={(e) => setCity(e.target.value)}
               />
               <TextField
                 required
                 id="address-required"
                 label="State"
                 variant="filled"
-                onChange={(e) => setAddress(e.target.value)}
+                error={state.length === 0}
+                onChange={(e) => setState(e.target.value)}
               />
               <TextField
                 required
@@ -168,7 +191,7 @@ function App() {
             </FormControl>
           </div>
           <div className='grid grid-cols-3'>
-            <Button disabled={address == "" || email === "" || creditCard === ""} onClick={() => { setConfirmOrder(true); setOpenCart(false) }} variant="contained">CONFIRM</Button>
+            <Button disabled={!validateForm()} onClick={() => { setConfirmOrder(true); setOpenCart(false) }} variant="contained">CONFIRM</Button>
             <div />
             <Button onClick={() => resetCart()} variant="contained"> Return </Button>
           </div>
