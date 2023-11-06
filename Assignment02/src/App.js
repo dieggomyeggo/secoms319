@@ -5,6 +5,7 @@ import Input from '@mui/material/Input'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import ModalOverflow from '@mui/joy/ModalOverflow';
 import { useState } from 'react';
 import Button from '@mui/material/Button'
 import { FormHelperText, TextField } from '@mui/material';
@@ -52,6 +53,7 @@ function App() {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    overflow: 'scroll',
   };
 
   const isNumeric = (n) => {
@@ -96,6 +98,7 @@ function App() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
+        <ModalOverflow>
         <Box sx={style}>
           {
             Products.map((p, i) => {
@@ -196,6 +199,7 @@ function App() {
             <Button onClick={() => resetCart()} variant="contained"> Return </Button>
           </div>
         </Box >
+        </ModalOverflow>
       </Modal >
       <Modal
         open={confirmOrder}
