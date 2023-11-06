@@ -1,14 +1,12 @@
 import { Products } from './Products';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel'
-import Input from '@mui/material/Input'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import ModalOverflow from '@mui/joy/ModalOverflow';
 import { useState } from 'react';
 import Button from '@mui/material/Button'
-import { FormHelperText, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 
 function App() {
   const [products, setProducts] = useState(Products);
@@ -26,7 +24,7 @@ function App() {
   const [city, setCity] = useState("")
 
   const validateForm = () => {
-    return validCreditCard() && validZipCode() && validateEmail(email) && validString(address) && validString(name) && validString(city) && validString(state);
+    return validCreditCard() && validZipCode() && validateEmail(email) && validString(address) && validString(name) && validString(city) && validString(state) && validString(name);
   }
 
   const validCreditCard = () => {
@@ -67,6 +65,11 @@ function App() {
 
   }
 
+  const resetApp = () => {
+    window.location.reload();
+
+  }
+
   const resetSearch = () => {
     setSearch("");
   }
@@ -90,6 +93,10 @@ function App() {
     setCreditCard("")
     setAddress("")
     setEmail("")
+    setZipCode("")
+    setName("")
+    setCity("")
+    setState("")
   }
 
 
@@ -208,7 +215,9 @@ function App() {
             <div className='grid grid-cols-3'>
               <Button disabled={!validateForm()} onClick={() => { setConfirmOrder(true); setOpenCart(false) }} variant="contained">CONFIRM</Button>
               <div />
-              <Button onClick={() => resetCart()} variant="contained"> Return </Button>
+              <Button onClick={() => {
+                resetCart();
+              }} variant="contained"> Return </Button>
             </div>
           </Box >
         </ModalOverflow>
@@ -272,7 +281,7 @@ function App() {
           <Typography>{state}</Typography>
           <Typography>{zipCode}</Typography>
 
-          <Button onClick={() => { resetSearch(); setConfirmOrder(false); }} variant="contained">RETURN</Button>
+          <Button onClick={() => { resetApp();}} variant="contained">RETURN</Button>
         </Box >
       </Modal >
 
