@@ -13,11 +13,11 @@ import { FormHelperText, TextField } from '@mui/material';
 function App() {
   const [products, setProducts] = useState(Products);
   const [openCart, setOpenCart] = useState(false);
-  const [yipee, setYipee] = useState(false);
   const [confirmOrder, setConfirmOrder] = useState(false);
   const [search, setSearch] = useState("");
   const [cart, setCart] = useState(new Map())
   const [total, setTotal] = useState(0)
+  const [name, setName] = useState("")
   const [creditCard, setCreditCard] = useState("")
   const [email, setEmail] = useState("")
   const [address, setAddress] = useState("")
@@ -26,11 +26,11 @@ function App() {
   const [city, setCity] = useState("")
 
   const validateForm = () => {
-    return validCreditCard() && validZipCode() && validateEmail(email) && validString(address) && validString(city) && validString(state);
+    return validCreditCard() && validZipCode() && validateEmail(email) && validString(address) && validString(name) && validString(city) && validString(state);
   }
 
   const validCreditCard = () => {
-    return creditCard.length != 0 && (isNumeric(creditCard) && creditCard.length === 16)
+    return creditCard.length !== 0 && (isNumeric(creditCard) && creditCard.length === 16)
   }
 
   const validZipCode = () => {
@@ -67,9 +67,13 @@ function App() {
 
   }
 
+  const resetSearch = () => {
+    setSearch("");
+  }
 
   const resetCart = () => {
     setOpenCart(false);
+    resetSearch();
     clearInfo();
   }
 
@@ -99,7 +103,125 @@ function App() {
         aria-describedby="modal-modal-description"
       >
         <ModalOverflow>
+          <Box sx={style}>
+            {
+              Products.map((p, i) => {
+                if (cart.has(p.title)) {
+                  return (
+                    <div key={i} className="grid grid-cols-3 gap-4 flex-wrap">
+                      <Typography >
+                        {`x${cart.get(p.title)}`}
+                      </Typography>
+                      <Typography >
+                        {`${p.title} `}
+                      </Typography>
+                      <Typography >
+                        {`${p.price}`}
+                      </Typography>
+                    </div>
+                  )
+                }
+              })
+            }
+            <div className="grid grid-cols-3 gap-4 flex-wrap">
+              <div className="col-span-2" >
+                <Typography>
+                  {`TOTAL(Before tax): `}
+                </Typography>
+              </div>
+
+              <Typography>
+                {`$${total.toFixed(2)}`}
+              </Typography>
+              <div className="col-span-2" >
+                <Typography>
+                  {`TOTAL(After tax): `}
+                </Typography>
+              </div>
+
+              <Typography>
+                {`$${(total * 1.07).toFixed(2)}`}
+              </Typography>
+            </div>
+
+            <div style={{ margin: 10 }}>
+              <FormControl>
+                <TextField
+                  required
+                  id="name-required"
+                  label="Name"
+                  variant="filled"
+                  onChange={(e) => { setName(e.target.value); }}
+                  error={name.length === 0}
+                />
+                <TextField
+                  required
+                  id="cc-required"
+                  label="Credit card"
+                  variant="filled"
+                  onChange={(e) => { setCreditCard(e.target.value); }}
+                  error={!validCreditCard()}
+                />
+                <TextField
+                  required
+                  id="email-required"
+                  label="Email"
+                  variant="filled"
+                  onChange={(e) => setEmail(e.target.value)}
+                  error={email.length !== 0 && !validateEmail(email)}
+                />
+                <TextField
+                  required
+                  id="address-required"
+                  label="Street Address"
+                  variant="filled"
+                  error={address.length === 0}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+
+                <TextField
+                  required
+                  id="address-required"
+                  label="City"
+                  variant="filled"
+                  error={city.length === 0}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+                <TextField
+                  required
+                  id="address-required"
+                  label="State"
+                  variant="filled"
+                  error={state.length === 0}
+                  onChange={(e) => setState(e.target.value)}
+                />
+                <TextField
+                  required
+                  id="address-required"
+                  label="Zip Code"
+                  variant="filled"
+                  onChange={(e) => setZipCode(e.target.value)}
+                  error={zipCode.length > 0 && (zipCode.length !== 5 || !isNumeric(zipCode))}
+                />
+              </FormControl>
+            </div>
+            <div className='grid grid-cols-3'>
+              <Button disabled={!validateForm()} onClick={() => { setConfirmOrder(true); setOpenCart(false) }} variant="contained">CONFIRM</Button>
+              <div />
+              <Button onClick={() => resetCart()} variant="contained"> Return </Button>
+            </div>
+          </Box >
+        </ModalOverflow>
+      </Modal >
+      <Modal
+        open={confirmOrder}
+        onClose={() => { clearInfo(); setConfirmOrder(false) }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
         <Box sx={style}>
+
+          <Typography>Thank you for your order!</Typography>
           {
             Products.map((p, i) => {
               if (cart.has(p.title)) {
@@ -140,103 +262,18 @@ function App() {
             </Typography>
           </div>
 
-          <div style={{ margin: 10 }}>
-            <FormControl>
-              <TextField
-                required
-                id="cc-required"
-                label="Credit card"
-                variant="filled"
-                onChange={(e) => { setCreditCard(e.target.value); }}
-                error={!validCreditCard()}
-              />
-              <TextField
-                required
-                id="email-required"
-                label="Email"
-                variant="filled"
-                onChange={(e) => setEmail(e.target.value)}
-                error={email.length != 0 && !validateEmail(email)}
-              />
-              <TextField
-                required
-                id="address-required"
-                label="Street Address"
-                variant="filled"
-                error={address.length === 0}
-                onChange={(e) => setAddress(e.target.value)}
-              />
+          <Typography>Your information:</Typography>
+          <Typography>Your Name: {name}</Typography>
+          <Typography>Email: {email}</Typography>
+          <Typography>Credit card: ••••-••••-••••-{creditCard.substring(12, 16)}</Typography>
+          <Typography>Shipping to:</Typography>
+          <Typography>{address}</Typography>
+          <Typography>{city}</Typography>
+          <Typography>{state}</Typography>
+          <Typography>{zipCode}</Typography>
 
-              <TextField
-                required
-                id="address-required"
-                label="City"
-                variant="filled"
-                error={city.length === 0}
-                onChange={(e) => setCity(e.target.value)}
-              />
-              <TextField
-                required
-                id="address-required"
-                label="State"
-                variant="filled"
-                error={state.length === 0}
-                onChange={(e) => setState(e.target.value)}
-              />
-              <TextField
-                required
-                id="address-required"
-                label="Zip Code"
-                variant="filled"
-                onChange={(e) => setZipCode(e.target.value)}
-                error={zipCode.length > 0 && (zipCode.length !== 5 || !isNumeric(zipCode))}
-              />
-            </FormControl>
-          </div>
-          <div className='grid grid-cols-3'>
-            <Button disabled={!validateForm()} onClick={() => { setConfirmOrder(true); setOpenCart(false) }} variant="contained">CONFIRM</Button>
-            <div />
-            <Button onClick={() => resetCart()} variant="contained"> Return </Button>
-          </div>
+          <Button onClick={() => { resetSearch(); setConfirmOrder(false); }} variant="contained">RETURN</Button>
         </Box >
-        </ModalOverflow>
-      </Modal >
-      <Modal
-        open={confirmOrder}
-        onClose={() => { clearInfo(); setConfirmOrder(false) }}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-
-          <Typography> YIPEE</Typography>
-
-          <div className="grid grid-cols-3 gap-4 flex-wrap">
-            <div className="col-span-2" >
-              <Typography>
-                {`TOTAL(After tax): `}
-              </Typography>
-            </div>
-
-            <Typography>
-              {`$${(total * 1.07).toFixed(2)}`}
-            </Typography>
-
-          </div>
-          <Button onClick={() => { setConfirmOrder(false); setYipee(true) }} variant="contained">ORDER</Button>
-        </Box >
-      </Modal >
-      <Modal
-        open={yipee}
-        onClose={() => { clearInfo(); setYipee(false) }}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography align="center">
-            YIPEE!
-          </Typography>
-        </Box>
       </Modal >
 
       <div className="h-full w-96 fixed left-0 top-0 bottom-0 bg-slate-200 p-4">
@@ -244,14 +281,13 @@ function App() {
         <input class="bg-slate-300 w-full p-3 text-slate-800 rounded-lg mt-2 mb-2"
           placeholder='Search this store...' onChange={(input) => {
             setSearch(input.target.value)
-          }}></input>
+          }} value={search}></input>
         <button onClick={() => setOpenCart(true)}
           className="bg-blue-600 p-3 text-lg text-white rounded-lg hover:bg-blue-500 w-full">Checkout
         </button>
       </div>
       <div className="grid grid-cols-4 gap-4 p-4 ml-96">
         {products.map((product, index) => {
-          // TODO: if doesnt match search, don't show
           if (search !== "" && !product.title.toLowerCase().includes(search.toLowerCase())) return null;
           return (
             <div key={index} className="group relative shadow-lg bg-white rounded-lg">
