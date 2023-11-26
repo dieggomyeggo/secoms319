@@ -1,7 +1,7 @@
 // Author: Diego Perez
 //   ISU Netid : joceo@iastate.edu
 //   Date :  November 13, 2023
-const { MongoClient } = require("mongodb")
+const { MongoClient } = require("mongodb");
 
 // Mongo
 const url = "mongodb://127.0.0.1:27017";
@@ -28,15 +28,40 @@ app.post("/createUser", async (req, res) => {
   let result = await collection.insertOne(newUser);
   res.send(result).status(204);
 });
+
+app.get("/getUsers", async (req, res) => {
+  await client.connect();
+  console.log("node connected successfully to get mongodb");
+  const query = {};
+  const results = await db
+    .collection("users")
+    .find(query)
+    .toArray();
+  console.log(results);
+  res.status(200);
+  res.send(results);
+});
+
+app.get("/getuser", async (req, res) => {
+  await client.connect();
+  console.log("node connected successfully to get mongodb");
+  const e = req.params.email;
+  const pass = req.params.password;
+  const query = { email: e, password: pass };
+  const results = await db.collection("robots").findone(query);
+  console.log("results: ", results);
+  if (!results) res.send("not found").status(404);
+  else res.send(results.status(200));
+});
 // app.get("/listRobots", async (req, res) => {
 //   await client.connect();
-//   console.log("Node connected successfully to GET MongoDB");
+//   console.log("node connected successfully to get mongodb");
 //   const query = {};
 //   const results = await db
 //     .collection("robots")
 //     .find(query)
 //     .limit(100)
-//     .toArray();
+//     .toarray();
 //   console.log(results);
 //   res.status(200);
 //   res.send(results);
@@ -74,4 +99,3 @@ app.post("/createUser", async (req, res) => {
 app.listen(port, () => {
   console.log("App listening at http://%s:%s", host, port);
 });
-

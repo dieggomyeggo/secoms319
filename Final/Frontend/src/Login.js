@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {createUser} from "./apiRequests";
+import { createUser } from "./apiRequests";
 
 /*
   This example requires some changes to your config:
@@ -21,7 +21,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const handleSubmit = (e, p) => {
     getUser(e, p);
-    };
+  };
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

@@ -1,26 +1,22 @@
 const createUser = (e, p) => {
-  fetch('http://localhost:8081/createUser', {
+  fetch("http://localhost:8081/createUser", {
     method: "POST",
     headers: {
-      "content-type": "application/json"
+      "content-type": "application/json",
     },
     body: JSON.stringify({
-      "email": e,
-      "password": p,
+      email: e,
+      password: p,
     }),
   })
-    .then(response => response.json())
-    .then(data => console.log(data));
-}
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+};
 
 const getUser = (e, p) => {
-  fetch('http://localhost:8081/' + e)
-    .then(response => response.json())
-    .then(data => data)
+  fetch("http://localhost:8081/" + e)
+    .then((response) => response.json())
+    .then((data) => data);
+};
 
-}
-
-export {
-  getUser,
-  createUser,
-}
+export { getUser, createUser };
