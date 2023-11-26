@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Browse from "./Browse";
+import Login from "./Login";
 
 function App() {
   const [page, setPage] = useState("browse");
@@ -59,7 +60,7 @@ function App() {
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 hover:cursor-pointer"
                   onClick={() => setPage("login-register")}
                 >
-                  Login / Registers
+                  Login / Register
                 </span>
               </li>
             </ul>
@@ -69,7 +70,7 @@ function App() {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {page === "browse" && <Browse />}
         {page === "my-workouts" && <p>My workouts</p>}
-        {page === "login-register" && <p>Login / register</p>}
+        {page === "login-register" && <Login />}
       </div>
     </div>
   );
