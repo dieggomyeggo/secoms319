@@ -28,6 +28,21 @@ app.post("/createUser", async (req, res) => {
   res.send(result).status(204);
 });
 
+app.put("/updateUser/:email", async (req, res) => {
+  let collection = await db.collection("users");
+  await client.connect();
+  const query = {
+    email: req.params.email,
+  };
+
+  const newUser = {
+    $set: req.body,
+  };
+  let result = collection.updateOne(query, newUser, null);
+  // db.users.updateOne({email:"123"}, {$set: {"password": "diego"}})
+  res.send(result).status(200);
+});
+
 app.get("/getUsers", async (_, res) => {
   await client.connect();
   console.log("Node connected successfully to GET MongoDB");
@@ -38,6 +53,21 @@ app.get("/getUsers", async (_, res) => {
   res.send(results);
 });
 
+/*
+ * Users should be created with the following JSON format:
+ *   {
+ *     email: ...,
+ *     password: ...,
+ *     workouts: [],
+ *   }
+ *
+ *   email and password are both strings, while the workouts array will hold strings which are the ids of the workout.
+ *   These ids can be extracted when the workout is created, then added to this array.
+ *
+ *
+ *
+ *
+ */
 app.get("/getUser", async (req, res) => {
   await client.connect();
   console.log("node connected successfully to get mongodb");
@@ -81,9 +111,9 @@ app.get("/getWorkouts/:id", async (req, res) => {
   console.log("Workout to find :", workoutsId);
   await client.connect();
   console.log("Node connected successfully to GET-id MongoDB");
-  const o_id = new ObjectId(workoutsId)
+  const o_id = new ObjectId(workoutsId);
   const query = { _id: o_id };
-  console.log("HERE IS THE QUERY", query)
+  console.log("HERE IS THE QUERY", query);
   const results = await db.collection("workouts").findOne(query);
   console.log("Results :", results);
   if (!results) res.send("Not Found").status(404);
