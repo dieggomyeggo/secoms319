@@ -8,6 +8,7 @@ const db = client.db(dbName);
 
 var express = require("express");
 var cors = require("cors");
+var ObjectId = require("mongodb").ObjectId;
 // var fs = require("fs");
 var bodyParser = require("body-parser");
 
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 const port = "8081";
 const host = "localhost";
 
+// USERS
 app.post("/createUser", async (req, res) => {
   let collection = await db.collection("users");
   await client.connect();
@@ -30,11 +32,7 @@ app.get("/getUsers", async (_, res) => {
   await client.connect();
   console.log("Node connected successfully to GET MongoDB");
   const query = {};
-  const results = await db
-    .collection("users")
-    .find(query)
-    .limit(100)
-    .toArray();
+  const results = await db.collection("users").find(query).limit(100).toArray();
   console.log(results);
   res.status(200);
   res.send(results);
@@ -51,52 +49,46 @@ app.get("/getUser", async (req, res) => {
 });
 
 app.delete("/deleteUser", async (req, res) => {
-  const collection = db.collection("users")
-  let result = await collection.deleteOne(req.body)
-  res.send(result).status(200)
-})
-// app.get("/listRobots", async (req, res) => {
-//   await client.connect();
-//   console.log("node connected successfully to get mongodb");
-//   const query = {};
-//   const results = await db
-//     .collection("robots")
-//     .find(query)
-//     .limit(100)
-//     .toarray();
-//   console.log(results);
-//   res.status(200);
-//   res.send(results);
-// });
+  const collection = db.collection("users");
+  let result = await collection.deleteOne(req.body);
+  res.send(result).status(200);
+});
 
-// app.get("/:id", async (req, res) => {
-//   const robotid = Number(req.params.id);
-//   console.log("Robot to find :", robotid);
-//   await client.connect();
-//   console.log("Node connected successfully to GET-id MongoDB");
-//   const query = { "id": robotid };
-//   const results = await db.collection("robots")
-//     .findOne(query);
-//   console.log("Results :", results);
-//   if (!results) res.send("Not Found").status(404);
-//   else res.send(results).status(200);
-// });
+//WORKOUTS
+app.get("/getWorkouts", async (_, res) => {
+  await client.connect();
+  console.log("Node connected successfully to GET MongoDB");
+  const query = {};
+  const results = await db
+    .collection("workouts")
+    .find(query)
+    .limit(100)
+    .toArray();
+  res.status(200);
+  res.send(results);
+});
 
-// app.post("/addRobot", async (req, res) => {
-//   let collection = await db.collection("robots")
-//   console.log("Robot to post: ", req.body);
-//   await client.connect();
-//   console.log("Node connected succesfull to POST-id MongoDB");
-//   let newRobot = req.body;
-//   let result = await collection.insertOne(newRobot);
-//   res.send(result).status(204);
+app.post("/createWorkout", async (req, res) => {
+  let collection = await db.collection("workouts");
+  await client.connect();
+  let newWorkout = req.body;
+  let result = await collection.insertOne(newWorkout);
+  res.send(result).status(204);
+});
 
-// });
-// app.delete("/deleteRobot", async (req, res) => {
-//   const collection = db.collection("robots")
-//   let result = await collection.deleteOne(req.body)
-//   res.send(result).status(200);
-// })
+app.get("/getWorkouts/:id", async (req, res) => {
+  const workoutsId = req.params.id;
+  console.log("Workout to find :", workoutsId);
+  await client.connect();
+  console.log("Node connected successfully to GET-id MongoDB");
+  const o_id = new ObjectId(workoutsId)
+  const query = { _id: o_id };
+  console.log("HERE IS THE QUERY", query)
+  const results = await db.collection("workouts").findOne(query);
+  console.log("Results :", results);
+  if (!results) res.send("Not Found").status(404);
+  else res.send(results).status(200);
+});
 
 app.listen(port, () => {
   console.log("App listening at http://%s:%s", host, port);
