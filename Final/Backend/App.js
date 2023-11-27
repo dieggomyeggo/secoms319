@@ -168,7 +168,7 @@ app.put("/updateWorkout/:id", async (req, res) => {
   const newWorkout = {
     $set: req.body,
   };
-  let result = collection.updateOne(query, newUser, null);
+  let result = collection.updateOne(query, newWorkout, null);
   res.send(result).status(200);
 
 })
