@@ -25,6 +25,23 @@ const port = "8081";
 const host = "localhost";
 
 // USERS
+
+/*
+ * Users should be created with the following JSON format:
+ *   {
+ *     email: ...,
+ *     password: ...,
+ *     workouts: [],
+ *   }
+ *
+ *   email and password are both strings, while the workouts array will hold strings which are the ids of the workout.
+ *   These ids can be extracted when the workout is created, then added to this array.
+ *
+ *
+ *
+ *
+ */
+
 app.post("/createUser", async (req, res) => {
   let collection = await db.collection("users");
   await client.connect();
@@ -32,6 +49,10 @@ app.post("/createUser", async (req, res) => {
   let result = await collection.insertOne(newUser);
   res.send(result).status(204);
 });
+
+/*
+ * When updating the workouts of a user, make sure to provide the existing array and append anything new
+ */
 
 app.put("/updateUser/:email", async (req, res) => {
   let collection = await db.collection("users");
@@ -89,21 +110,6 @@ app.get("/getWorkouts", async (_, res) => {
   res.send(results);
 });
 
-/*
- * Users should be created with the following JSON format:
- *   {
- *     email: ...,
- *     password: ...,
- *     workouts: [],
- *   }
- *
- *   email and password are both strings, while the workouts array will hold strings which are the ids of the workout.
- *   These ids can be extracted when the workout is created, then added to this array.
- *
- *
- *
- *
- */
 
 app.post("/createWorkout", async (req, res) => {
   let collection = await db.collection("workouts");
@@ -150,5 +156,20 @@ app.get("/getExercises/:muscle", async (req, res) => {
     else if (response.statusCode != 200) return console.error('Error:', response.statusCode, body.toString('utf8'));
     else console.log(response.body)
   }).pipe(res);
+})
+
+app.put("/updateWorkout/:id", async (req, res) => {
+  let collection = await db.collection("workouts");
+  await client.connect();
+  const query = {
+    _id: req.params.id,
+  };
+
+  const newWorkout = {
+    $set: req.body,
+  };
+  let result = collection.updateOne(query, newUser, null);
+  res.send(result).status(200);
+
 })
 
