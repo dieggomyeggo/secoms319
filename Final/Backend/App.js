@@ -132,7 +132,7 @@ app.listen(port, () => {
 
 
 
-app.get("/getExercises/:muscle", async (req, _) => {
+app.get("/getExercises/:muscle", async (req, res) => {
   request.get({
     url: 'https://api.api-ninjas.com/v1/exercises?muscle=' + req.params.muscle,
     headers: {
@@ -142,6 +142,6 @@ app.get("/getExercises/:muscle", async (req, _) => {
     if (error) return console.error('Request failed:', error);
     else if (response.statusCode != 200) return console.error('Error:', response.statusCode, body.toString('utf8'));
     else console.log(response.body)
-  });
+  }).pipe(res);
 })
 
