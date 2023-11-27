@@ -1,4 +1,9 @@
+const API_KEY = "sFArhIv37+BIAOieTZRarA==wWpaJcO62A2nDhzM"
+
 const { MongoClient } = require("mongodb");
+
+const request = require('request');
+
 
 // Mongo
 const url = "mongodb://127.0.0.1:27017";
@@ -123,3 +128,20 @@ app.get("/getWorkouts/:id", async (req, res) => {
 app.listen(port, () => {
   console.log("App listening at http://%s:%s", host, port);
 });
+
+
+
+
+app.get("/getExercises/:muscle", async (req, _) => {
+  request.get({
+    url: 'https://api.api-ninjas.com/v1/exercises?muscle=' + req.params.muscle,
+    headers: {
+      'X-Api-Key': API_KEY
+    },
+  }, function(error, response, body) {
+    if (error) return console.error('Request failed:', error);
+    else if (response.statusCode != 200) return console.error('Error:', response.statusCode, body.toString('utf8'));
+    else console.log(response.body)
+  });
+})
+
