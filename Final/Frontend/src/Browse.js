@@ -1,4 +1,8 @@
+import React, { useState } from "react";
+
 const Browse = () => {
+  const [showDropdown, setShowDropdown] = useState(false);
+
   return (
     <div>
       <div className="mt-4 p-8 bg-gray-800 rounded-2xl">
@@ -25,8 +29,9 @@ const Browse = () => {
             <button
               id="dropdown-button"
               data-dropdown-toggle="dropdown"
-              className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100"
+              className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-2 focus:ring-blue-500"
               type="button"
+              onClick={() => setShowDropdown(!showDropdown)}
             >
               Any muscle group{" "}
               <svg
@@ -41,7 +46,9 @@ const Browse = () => {
             </button>
             <div
               id="dropdown"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
+              className={`z-10 ${
+                showDropdown ? "" : "hidden"
+              } bg-white divide-y absolute mt-11 divide-gray-100 rounded-lg shadow w-44`}
             >
               <ul
                 className="py-2 text-sm text-gray-700"
