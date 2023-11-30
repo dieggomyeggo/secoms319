@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import muscleGroups from "./muscleGroups";
 
 const Browse = () => {
   const [showDropdown, setShowDropdown] = useState(false);
-
   return (
     <div>
       <div className="mt-4 p-8 bg-gray-800 rounded-2xl">
@@ -54,38 +54,19 @@ const Browse = () => {
                 className="py-2 text-sm text-gray-700"
                 aria-labelledby="dropdown-button"
               >
-                <li>
-                  <button
-                    type="button"
-                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
-                  >
-                    Mockups
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
-                  >
-                    Templates
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
-                  >
-                    Design
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
-                  >
-                    Logos
-                  </button>
-                </li>
+                {muscleGroups.map((muscle) => {
+                  console.log(muscle);
+                  return (
+                    <li>
+                      <button
+                        type="button"
+                        className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+                      >
+                        {muscle}
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
             <div className="relative w-full">
