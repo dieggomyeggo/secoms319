@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import muscleGroups from "./muscleGroups";
+import exerciseTypes from "./exerciseTypes";
 
 const Browse = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [muscleGroup, setMuscleGroup] = useState("Any Muscle Group");
   return (
     <div>
       <div className="mt-4 p-8 bg-gray-800 rounded-2xl">
@@ -19,6 +21,22 @@ const Browse = () => {
       </div>
       <div className="mt-6">
         <form>
+          <div class="flex items-center mb-4">
+
+
+            <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+              {exerciseTypes.map(t => {
+                return (
+                  <>
+                    <input id="default-radio-1" type="radio" value="" name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                    <label for="default-radio-1" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{t}</label>
+                  </>
+
+                )
+              })}
+            </div>
+          </div>
+
           <div className="flex">
             <label
               htmlFor="search-dropdown"
@@ -33,7 +51,7 @@ const Browse = () => {
               type="button"
               onClick={() => setShowDropdown(!showDropdown)}
             >
-              Any muscle group{" "}
+              {muscleGroup}
               <svg
                 className="w-2.5 h-2.5 ms-2.5"
                 aria-hidden="true"
@@ -46,9 +64,8 @@ const Browse = () => {
             </button>
             <div
               id="dropdown"
-              className={`z-10 ${
-                showDropdown ? "" : "hidden"
-              } bg-white divide-y absolute mt-11 divide-gray-100 rounded-lg shadow w-44`}
+              className={`z-10 ${showDropdown ? "" : "hidden"
+                } bg-white divide-y absolute mt-11 divide-gray-100 rounded-lg shadow w-44`}
             >
               <ul
                 className="py-2 text-sm text-gray-700"
@@ -61,6 +78,38 @@ const Browse = () => {
                       <button
                         type="button"
                         className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+                        onClick={() => {
+                          setShowDropdown(false);
+                          setMuscleGroup(muscle);
+                        }}
+                      >
+                        {muscle}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div
+              id="dropdown-2"
+              className={`z-10 ${showDropdown ? "" : "hidden"
+                } bg-white divide-y absolute mt-11 divide-gray-100 rounded-lg shadow w-44`}
+            >
+              <ul
+                className="py-2 text-sm text-gray-700"
+                aria-labelledby="dropdown-button"
+              >
+                {muscleGroups.map((muscle) => {
+                  console.log(muscle);
+                  return (
+                    <li>
+                      <button
+                        type="button"
+                        className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+                        onClick={() => {
+                          setShowDropdown(false);
+                          setMuscleGroup(muscle);
+                        }}
                       >
                         {muscle}
                       </button>
