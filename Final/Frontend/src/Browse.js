@@ -8,19 +8,13 @@ const Browse = () => {
   const [exerciseType, setExerciseType] = useState("");
   const [exerciseName, setExerciseName] = useState("");
 
-  const handleChange = (e) => {
-    if (e.target.value == "Olympic Weightlifting")
-      setExerciseType("olympic_weightlifting");
-    else setExerciseType(e.target.value);
-  };
-
   const getExercises = () => {
-    const typeRequest = exerciseType != "" ? `type=${exerciseType}&` : "";
+    const typeRequest = exerciseType !== "" ? `type=${exerciseType}&` : "";
     const muscleRequest =
-      muscleGroup != "Any Muscle Group"
+      muscleGroup !== "Any Muscle Group"
         ? `muscle=${muscleGroup.toLowerCase()}&`
         : "";
-    const nameRequest = exerciseName != "" ? `name=${exerciseName}` : "";
+    const nameRequest = exerciseName !== "" ? `name=${exerciseName}` : "";
     const URL =
       "http://localhost:8081/getExercises?" +
       typeRequest +
@@ -47,25 +41,28 @@ const Browse = () => {
         </p>
       </div>
       <div className="mt-6">
+        <p className="text-sm mb-1">Workout Type:</p>
         <form>
           <div className="flex items-center mb-4">
-            <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-              {exerciseTypes.map((t, i) => {
+            <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:flex gap-5 p-2">
+              {exerciseTypes.map(({ name, id }, i) => {
                 return (
                   <li>
                     <input
                       id={`default-radio-${i}`}
                       type="radio"
-                      value={t}
+                      value={id}
                       name="default-radio"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      onChange={handleChange}
+                      className="text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+                      onChange={() => {
+                        setExerciseType(id);
+                      }}
                     />
                     <label
-                      htmlFor="default-radio-1"
-                      className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      htmlFor={`default-radio-${i}`}
+                      className="ms-2 text-sm font-medium text-gray-900"
                     >
-                      {t}
+                      {name}
                     </label>
                   </li>
                 );
@@ -74,12 +71,6 @@ const Browse = () => {
           </div>
 
           <div className="flex">
-            <label
-              htmlFor="search-dropdown"
-              className="mb-2 text-sm font-medium text-gray-900 sr-only"
-            >
-              Your Email
-            </label>
             <button
               id="dropdown-button"
               data-dropdown-toggle="dropdown"
@@ -114,11 +105,6 @@ const Browse = () => {
                       <button
                         type="button"
                         className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
-                        onClick={(e) => {
-                          setShowDropdown(false);
-                          if (e.target.value == "Olympic Weightlifting")
-                            setMuscleGroup("olympic_weightlifting");
-                        }}
                       >
                         {muscle}
                       </button>
@@ -157,7 +143,6 @@ const Browse = () => {
             </div>
             <div className="relative w-full">
               <input
-                type="search"
                 id="search-dropdown"
                 className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Search Exercises..."
@@ -165,7 +150,6 @@ const Browse = () => {
                 required
               />
               <button
-                type="submit"
                 className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
                 onClick={getExercises}
               >
