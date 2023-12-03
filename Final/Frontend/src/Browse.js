@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const exerciseTypeOptions = [
   { name: "Any Exercise Type", id: "" },
@@ -37,9 +37,17 @@ const Browse = () => {
   const [exerciseName, setExerciseName] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
+  useEffect(() => {
+    fetchGetExercises();
+  }, []);
+
   const searchExercises = (event) => {
     event.preventDefault();
 
+    fetchGetExercises();
+  };
+
+  const fetchGetExercises = async () => {
     const URL = `http://localhost:8081/getExercises?type=${exerciseType}&muscle=${muscleGroup}&name=${exerciseName}`;
     console.log(URL);
     fetch(URL)
