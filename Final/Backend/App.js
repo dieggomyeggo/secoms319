@@ -159,32 +159,17 @@ app.put('/updateWorkout/:id', async (req, res) => {
     res.send(result).status(200)
 })
 
-//Similar to what you would expect from most REST APIs, this api endpoint will accept query parameters this way: "/getExercises?muscle=glutes"
+// Similar to what you would expect from most REST APIs, this api endpoint will accept query parameters this way: "/getExercises?muscle=glutes"
 app.get('/getExercises', async (req, res) => {
-    const muscle = req.query.muscle ? `muscle=${req.query.muscle}&` : ''
-    const type = req.query.type ? `type=${req.query.type}&` : ''
-    const name = req.query.name ? `name=${req.query.name}&` : ''
-    const difficulty = req.query.difficulty
-        ? `difficulty=${req.query.difficulty}&`
-        : ''
+    const { muscle = '', type = '', name = '' } = req.query
 
-    console.log(
-        'MY REQUEST\n' +
-            'https://api.api-ninjas.com/v1/exercises?' +
-            muscle +
-            type +
-            name +
-            difficulty
-    )
+    const URL = `https://api.api-ninjas.com/v1/exercises?type=${type}&muscle=${muscle}&name=${name}`
+
+    console.log(URL)
     request
         .get(
             {
-                url:
-                    'https://api.api-ninjas.com/v1/exercises?' +
-                    muscle +
-                    type +
-                    name +
-                    difficulty,
+                url: URL,
                 headers: {
                     'X-Api-Key': API_KEY,
                 },
@@ -197,31 +182,6 @@ app.get('/getExercises', async (req, res) => {
                         response.statusCode,
                         body.toString('utf8')
                     )
-            }
-        )
-        .pipe(res)
-})
-
-app.get('/getExercises/:muscle', async (req, res) => {
-    request
-        .get(
-            {
-                url:
-                    'https://api.api-ninjas.com/v1/exercises?muscle=' +
-                    req.params.muscle,
-                headers: {
-                    'X-Api-Key': API_KEY,
-                },
-            },
-            function (error, response, body) {
-                if (error) return console.error('Request failed:', error)
-                else if (response.statusCode != 200)
-                    return console.error(
-                        'Error:',
-                        response.statusCode,
-                        body.toString('utf8')
-                    )
-                else console.log(response.body)
             }
         )
         .pipe(res)

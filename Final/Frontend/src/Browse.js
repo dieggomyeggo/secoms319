@@ -1,25 +1,44 @@
 import React, { useState } from "react";
-import muscleGroups from "./muscleGroups";
-import exerciseTypes from "./exerciseTypes";
+
+const exerciseTypeOptions = [
+  { name: "Any Exercise Type", id: "" },
+  { name: "Cardio", id: "cardio" },
+  { name: "Olympic Weightlifting", id: "olympic_weightlifting" },
+  { name: "Plyometrics", id: "plyometrics" },
+  { name: "Powerlifting", id: "powerlifting" },
+  { name: "Strength", id: "strength" },
+  { name: "Stretching", id: "stretching" },
+  { name: "Strongman", id: "strongman" },
+];
+
+const muscleGroupOptions = [
+  { name: "Any Muscle Group", id: "" },
+  { name: "Abdominals", id: "abdominals" },
+  { name: "Adductors", id: "adductors" },
+  { name: "Biceps", id: "biceps" },
+  { name: "Calves", id: "calves" },
+  { name: "Chest", id: "chest" },
+  { name: "Forearms", id: "forearms" },
+  { name: "Glutes", id: "glutes" },
+  { name: "Hamstrings", id: "hamstrings" },
+  { name: "Lats", id: "lats" },
+  { name: "Lower back", id: "lower_back" },
+  { name: "Middle back", id: "middle_back" },
+  { name: "Neck", id: "neck" },
+  { name: "Quadriceps", id: "quadriceps" },
+  { name: "Traps", id: "traps" },
+  { name: "Triceps", id: "triceps" },
+];
 
 const Browse = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [muscleGroup, setMuscleGroup] = useState("Any Muscle Group");
-  const [exerciseType, setExerciseType] = useState("");
+  const [exerciseType, setExerciseType] = useState(exerciseTypeOptions[0].id);
+  const [muscleGroup, setMuscleGroup] = useState(muscleGroupOptions[0].id);
   const [exerciseName, setExerciseName] = useState("");
 
-  const getExercises = () => {
-    const typeRequest = exerciseType !== "" ? `type=${exerciseType}&` : "";
-    const muscleRequest =
-      muscleGroup !== "Any Muscle Group"
-        ? `muscle=${muscleGroup.toLowerCase()}&`
-        : "";
-    const nameRequest = exerciseName !== "" ? `name=${exerciseName}` : "";
-    const URL =
-      "http://localhost:8081/getExercises?" +
-      typeRequest +
-      muscleRequest +
-      nameRequest;
+  const searchExercises = (event) => {
+    event.preventDefault();
+
+    const URL = `http://localhost:8081/getExercises?type=${exerciseType}&muscle=${muscleGroup}&name=${exerciseName}`;
     console.log(URL);
     fetch(URL)
       .then((r) => r.json())
@@ -41,117 +60,41 @@ const Browse = () => {
         </p>
       </div>
       <div className="mt-6">
-        <p className="text-sm mb-1">Workout Type:</p>
         <form>
-          <div className="flex items-center mb-4">
-            <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:flex gap-5 p-2">
-              {exerciseTypes.map(({ name, id }, i) => {
-                return (
-                  <li>
-                    <input
-                      id={`default-radio-${i}`}
-                      type="radio"
-                      value={id}
-                      name="default-radio"
-                      className="text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                      onChange={() => {
-                        setExerciseType(id);
-                      }}
-                    />
-                    <label
-                      htmlFor={`default-radio-${i}`}
-                      className="ms-2 text-sm font-medium text-gray-900"
-                    >
-                      {name}
-                    </label>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
           <div className="flex">
-            <button
-              id="dropdown-button"
-              data-dropdown-toggle="dropdown"
-              className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-2 focus:ring-blue-500"
+            <select
+              className="flex-shrink-0 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-2 focus:ring-blue-500"
               type="button"
-              onClick={() => setShowDropdown(!showDropdown)}
+              onChange={(e) => {
+                setExerciseType(e.target.value);
+              }}
             >
-              {muscleGroup}
-              <svg
-                className="w-2.5 h-2.5 ms-2.5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path stroke="currentColor" strokeWidth={2} d="m1 1 4 4 4-4" />
-              </svg>
-            </button>
-            <div
-              id="dropdown"
-              className={`z-10 ${
-                showDropdown ? "" : "hidden"
-              } bg-white divide-y absolute mt-11 divide-gray-100 rounded-lg shadow w-44`}
+              {exerciseTypeOptions.map(({ name, id }, i) => (
+                <option value={id}>{name}</option>
+              ))}
+            </select>
+
+            <select
+              className="flex-shrink-0 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 border-s-0 hover:bg-gray-200 focus:ring-2 focus:ring-blue-500"
+              type="button"
+              onChange={(e) => {
+                setMuscleGroup(e.target.value);
+              }}
             >
-              <ul
-                className="py-2 text-sm text-gray-700"
-                aria-labelledby="dropdown-button"
-              >
-                {muscleGroups.map((muscle) => {
-                  return (
-                    <li>
-                      <button
-                        type="button"
-                        className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
-                      >
-                        {muscle}
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            <div
-              id="dropdown-2"
-              className={`z-10 ${
-                showDropdown ? "" : "hidden"
-              } bg-white divide-y absolute mt-11 divide-gray-100 rounded-lg shadow w-44`}
-            >
-              <ul
-                className="py-2 text-sm text-gray-700"
-                aria-labelledby="dropdown-button"
-              >
-                {muscleGroups.map((muscle) => {
-                  return (
-                    <li>
-                      <button
-                        type="button"
-                        className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
-                        onClick={() => {
-                          setShowDropdown(false);
-                          setMuscleGroup(muscle);
-                        }}
-                      >
-                        {muscle}
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+              {muscleGroupOptions.map(({ name, id }, i) => (
+                <option value={id}>{name}</option>
+              ))}
+            </select>
+
             <div className="relative w-full">
               <input
-                id="search-dropdown"
-                className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Search Exercises..."
                 onChange={(e) => setExerciseName(e.target.value)}
-                required
               />
               <button
                 className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
-                onClick={getExercises}
+                onClick={searchExercises}
               >
                 <svg
                   className="w-4 h-4"
