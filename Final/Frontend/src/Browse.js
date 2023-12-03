@@ -14,6 +14,7 @@ const exerciseTypeOptions = [
 const muscleGroupOptions = [
   { name: "Any Muscle Group", id: "" },
   { name: "Abdominals", id: "abdominals" },
+  { name: "Abductors", id: "abductors" },
   { name: "Adductors", id: "adductors" },
   { name: "Biceps", id: "biceps" },
   { name: "Calves", id: "calves" },
@@ -143,13 +144,13 @@ const Browse = () => {
                   {
                     // I figured iterating through exerciseTypeOptions is fine since it's length is 7
                     exerciseTypeOptions.filter(
-                      (option) => option.id === exercise.type,
+                      (option) => option.id === exercise.type
                     )[0].name
                   }
                   ,{" "}
                   {
                     muscleGroupOptions.filter(
-                      (option) => option.id === exercise.muscle,
+                      (option) => option.id === exercise.muscle
                     )[0].name
                   }
                 </p>
