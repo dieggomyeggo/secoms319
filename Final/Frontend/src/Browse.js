@@ -61,9 +61,9 @@ const Browse = () => {
       </div>
       <div className="mt-6">
         <form>
-          <div className="flex">
+          <div className="flex gap-y-2 flex-wrap sm:flex-nowrap">
             <select
-              className="flex-shrink-0 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-2 focus:ring-blue-500"
+              className="flex-shrink-0 w-1/2 sm:w-auto inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-2 focus:ring-blue-500"
               type="button"
               onChange={(e) => {
                 setExerciseType(e.target.value);
@@ -75,7 +75,7 @@ const Browse = () => {
             </select>
 
             <select
-              className="flex-shrink-0 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 border-s-0 hover:bg-gray-200 focus:ring-2 focus:ring-blue-500"
+              className="flex-shrink-0 w-1/2 sm:w-auto inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-e-lg sm:rounded-none border-s-0 hover:bg-gray-200 focus:ring-2 focus:ring-blue-500"
               type="button"
               onChange={(e) => {
                 setMuscleGroup(e.target.value);
@@ -88,7 +88,7 @@ const Browse = () => {
 
             <div className="relative w-full">
               <input
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg sm:rounded-s-none  sm:border-s-gray-50 sm:border-s-2 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Search Exercises..."
                 onChange={(e) => setExerciseName(e.target.value)}
               />
