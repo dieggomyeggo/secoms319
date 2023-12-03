@@ -40,7 +40,8 @@ const Browse = () => {
 
   useEffect(() => {
     fetchGetExercises();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const searchExercises = (event) => {
     event.preventDefault();

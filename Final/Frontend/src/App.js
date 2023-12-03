@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div>
-      <nav className="sticky top-0 bg-gray-100">
+      <nav className="sticky top-0 bg-gray-100 z-50">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <span className="self-center text-2xl font-semibold whitespace-nowrap">
             MuscleMapper
