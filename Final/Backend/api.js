@@ -26,7 +26,6 @@ const host = 'localhost'
  *   email and password are both strings, while the workouts array will hold strings which are the ids of the workout.
  *   These ids can be extracted when the workout is created, then added to this array.
  */
-
 app.post('/createUser', async (req, res) => {
     let collection = db.collection('users')
     let newUser = req.body
@@ -35,9 +34,17 @@ app.post('/createUser', async (req, res) => {
 })
 
 /*
+ * TODO: Login validation — given email, is password correct?
+ * Return entire user object (including password, we're lazy), frontend saves this
+ */
+app.post('/login', async (req, res) => {
+    let dummy = { email: 'blah' }
+    res.send(dummy).status(200)
+})
+
+/*
  * When updating the workouts of a user, make sure to provide the existing array and append anything new
  */
-
 app.put('/updateUser/:email', async (req, res) => {
     let collection = db.collection('users')
     const query = {

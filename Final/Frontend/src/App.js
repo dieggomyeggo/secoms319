@@ -4,6 +4,12 @@ import Login from "./Login";
 
 function App() {
   const [page, setPage] = useState("browse");
+  const [user, setUser] = useState({ email: "blah" });
+
+  const logout = () => {
+    setUser(null);
+    setPage("browse");
+  };
 
   return (
     <div>
@@ -34,12 +40,21 @@ function App() {
                 </span>
               </li>
               <li>
-                <span
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 hover:cursor-pointer"
-                  onClick={() => setPage("login-register")}
-                >
-                  Login / Register
-                </span>
+                {user ? (
+                  <span
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 hover:cursor-pointer"
+                    onClick={() => logout()}
+                  >
+                    Logout
+                  </span>
+                ) : (
+                  <span
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 hover:cursor-pointer"
+                    onClick={() => setPage("login-register")}
+                  >
+                    Login / Register
+                  </span>
+                )}
               </li>
             </ul>
           </div>
