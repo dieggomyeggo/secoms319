@@ -28,12 +28,14 @@ const muscleGroupOptions = [
   { name: "Quadriceps", id: "quadriceps" },
   { name: "Traps", id: "traps" },
   { name: "Triceps", id: "triceps" },
+  { name: "Shoulders", id: "shoulders" },
 ];
 
 const Browse = () => {
   const [exerciseType, setExerciseType] = useState(exerciseTypeOptions[0].id);
   const [muscleGroup, setMuscleGroup] = useState(muscleGroupOptions[0].id);
   const [exerciseName, setExerciseName] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   const searchExercises = (event) => {
     event.preventDefault();
@@ -42,7 +44,7 @@ const Browse = () => {
     console.log(URL);
     fetch(URL)
       .then((r) => r.json())
-      .then((data) => console.log(data));
+      .then((data) => setSearchResults(data));
   };
 
   return (
@@ -70,7 +72,9 @@ const Browse = () => {
               }}
             >
               {exerciseTypeOptions.map(({ name, id }, i) => (
-                <option value={id}>{name}</option>
+                <option key={"exerciseTypeOption-" + id} value={id}>
+                  {name}
+                </option>
               ))}
             </select>
 
@@ -82,7 +86,9 @@ const Browse = () => {
               }}
             >
               {muscleGroupOptions.map(({ name, id }, i) => (
-                <option value={id}>{name}</option>
+                <option key={"muscleGroupOption-" + id} value={id}>
+                  {name}
+                </option>
               ))}
             </select>
 
@@ -117,6 +123,55 @@ const Browse = () => {
           </div>
         </form>
       </div>
+      <ul className="divide-y divide-gray-300">
+        {searchResults.map((exercise, i) => (
+          <li key={"search-result-" + i} className="py-5">
+            <div className="flex justify-between gap-x-6">
+              <div className="min-w-0 flex-auto">
+                <p className="text font-semibold leading-6 text-gray-900">
+                  {exercise.name}
+                </p>
+                <p className="text-sm text-gray-400">
+                  {
+                    // I figured iterating through exerciseTypeOptions is fine since it's length is 7
+                    exerciseTypeOptions.filter(
+                      (option) => option.id === exercise.type,
+                    )[0].name
+                  }
+                  ,{" "}
+                  {
+                    muscleGroupOptions.filter(
+                      (option) => option.id === exercise.muscle,
+                    )[0].name
+                  }
+                </p>
+              </div>
+              <div className="shrink-0 flex flex-row items-center ">
+                <button className="bg-slate-200 hover:bg-slate-300 rounded-md flex gap-x-1 p-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 4.5v15m7.5-7.5h-15"
+                    />
+                  </svg>
+                  Add to a workout
+                </button>
+              </div>
+            </div>
+            <p className="mt-1 text-sm leading-5 text-gray-500">
+              {exercise.instructions}
+            </p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
