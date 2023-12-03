@@ -40,7 +40,7 @@ const Browse = () => {
 
   useEffect(() => {
     fetchGetExercises();
-  }, []);
+  });
 
   const searchExercises = (event) => {
     event.preventDefault();
@@ -144,13 +144,13 @@ const Browse = () => {
                   {
                     // I figured iterating through exerciseTypeOptions is fine since it's length is 7
                     exerciseTypeOptions.filter(
-                      (option) => option.id === exercise.type
+                      (option) => option.id === exercise.type,
                     )[0].name
                   }
                   ,{" "}
                   {
                     muscleGroupOptions.filter(
-                      (option) => option.id === exercise.muscle
+                      (option) => option.id === exercise.muscle,
                     )[0].name
                   }
                 </p>

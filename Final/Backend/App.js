@@ -1,25 +1,15 @@
-const API_KEY = 'sFArhIv37+BIAOieTZRarA==wWpaJcO62A2nDhzM'
-
-const { MongoClient } = require('mongodb')
-
-const request = require('request')
-
-// Mongo
-const url = 'mongodb://127.0.0.1:27017'
-const dbName = 'Final'
-const client = new MongoClient(url)
-const db = client.db(dbName)
-
-var express = require('express')
-var cors = require('cors')
-var ObjectId = require('mongodb').ObjectId
-// var fs = require("fs");
-var bodyParser = require('body-parser')
+import request from 'request'
+import express from 'express'
+import cors from 'cors'
+import bodyParser from 'body-parser'
+import { ObjectId } from 'mongodb'
+import db from './database.js'
 
 var app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
+const API_KEY = 'sFArhIv37+BIAOieTZRarA==wWpaJcO62A2nDhzM'
 const port = '8081'
 const host = 'localhost'
 
@@ -35,15 +25,10 @@ const host = 'localhost'
  *
  *   email and password are both strings, while the workouts array will hold strings which are the ids of the workout.
  *   These ids can be extracted when the workout is created, then added to this array.
- *
- *
- *
- *
  */
 
 app.post('/createUser', async (req, res) => {
     let collection = db.collection('users')
-    await client.connect()
     let newUser = req.body
     let result = await collection.insertOne(newUser)
     res.send(result).status(204)
@@ -55,7 +40,6 @@ app.post('/createUser', async (req, res) => {
 
 app.put('/updateUser/:email', async (req, res) => {
     let collection = db.collection('users')
-    await client.connect()
     const query = {
         email: req.params.email,
     }
@@ -69,8 +53,6 @@ app.put('/updateUser/:email', async (req, res) => {
 })
 
 app.get('/getUsers', async (_, res) => {
-    await client.connect()
-    console.log('Node connected successfully to GET MongoDB')
     const query = {}
     const results = await db
         .collection('users')
@@ -83,8 +65,6 @@ app.get('/getUsers', async (_, res) => {
 })
 
 app.get('/getUser', async (req, res) => {
-    await client.connect()
-    console.log('node connected successfully to get mongodb')
     const query = req.body
     const results = await db.collection('users').findOne(query)
     console.log('results: ', results)
@@ -100,7 +80,6 @@ app.delete('/deleteUser', async (req, res) => {
 
 //WORKOUTS
 app.get('/getWorkouts', async (_, res) => {
-    await client.connect()
     console.log('Node connected successfully to GET MongoDB')
     const query = {}
     const results = await db
@@ -114,7 +93,6 @@ app.get('/getWorkouts', async (_, res) => {
 
 app.post('/createWorkout', async (req, res) => {
     let collection = db.collection('workouts')
-    await client.connect()
     let newWorkout = req.body
     let result = await collection.insertOne(newWorkout)
     res.send(result).status(204)
@@ -128,8 +106,7 @@ app.post('/createWorkout', async (req, res) => {
 app.get('/getWorkouts/:id', async (req, res) => {
     const workoutsId = req.params.id
     console.log('Workout to find :', workoutsId)
-    await client.connect()
-    console.log('Node connected successfully to GET-id MongoDB')
+
     const o_id = new ObjectId(workoutsId)
     const query = {
         _id: o_id,
@@ -141,13 +118,9 @@ app.get('/getWorkouts/:id', async (req, res) => {
     else res.send(results).status(200)
 })
 
-app.listen(port, () => {
-    console.log('App listening at http://%s:%s', host, port)
-})
-
 app.put('/updateWorkout/:id', async (req, res) => {
     let collection = db.collection('workouts')
-    await client.connect()
+
     const query = {
         _id: req.params.id,
     }
@@ -165,7 +138,6 @@ app.get('/getExercises', async (req, res) => {
 
     const URL = `https://api.api-ninjas.com/v1/exercises?type=${type}&muscle=${muscle}&name=${name}`
 
-    console.log(URL)
     request
         .get(
             {
@@ -185,4 +157,8 @@ app.get('/getExercises', async (req, res) => {
             }
         )
         .pipe(res)
+})
+
+app.listen(port, () => {
+    console.log('App listening at http://%s:%s', host, port)
 })
