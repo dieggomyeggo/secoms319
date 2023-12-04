@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Browse from "./Browse";
 import Login from "./Login";
 import Workouts from "./Workouts";
+import About from "./About";
 
 function App() {
   const [page, setPage] = useState("browse");
@@ -98,6 +99,14 @@ function App() {
                 </li>
               )}
               <li>
+                <span
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 hover:cursor-pointer"
+                  onClick={() => setPage("about")}
+                >
+                  Student Information
+                </span>
+              </li>
+              <li>
                 {user ? (
                   <span
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 hover:cursor-pointer"
@@ -122,6 +131,7 @@ function App() {
         {page === "browse" && <Browse user={user} setUser={setUser} />}
         {page === "my-workouts" && <Workouts user={user} setUser={setUser} />}
         {page === "login-register" && <Login />}
+        {page === "about" && <About />}
       </div>
     </div>
   );
