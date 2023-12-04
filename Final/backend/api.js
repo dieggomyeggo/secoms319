@@ -72,7 +72,9 @@ app.put('/updateUser/:email', async (req, res) => {
 //     res.send(results)
 // })
 
-app.get('/getUser', async (req, res) => {
+// Replace with login (validate password, etc)
+// And maybe don't send password back
+app.get('/getUser/', async (req, res) => {
     const query = req.body
     const results = await db.collection('users').findOne(query)
     console.log('results: ', results)
@@ -80,11 +82,12 @@ app.get('/getUser', async (req, res) => {
     else res.send(results).status(200)
 })
 
-app.delete('/deleteUser', async (req, res) => {
-    const collection = db.collection('users')
-    let result = await collection.deleteOne(req.body)
-    res.send(result).status(200)
-})
+// IMO out of scope
+// app.delete('/deleteUser', async (req, res) => {
+//     const collection = db.collection('users')
+//     let result = await collection.deleteOne(req.body)
+//     res.send(result).status(200)
+// })
 
 // WORKOUTS
 // app.get('/getWorkouts', async (_, res) => {

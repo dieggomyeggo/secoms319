@@ -7,52 +7,63 @@ import About from "./About";
 function App() {
   const [page, setPage] = useState("browse");
   // TODO login / register to get user object
-  const [user, setUser] = useState({
-    _id: {
-      $oid: "656cec43890de477ede116cf",
-    },
-    email: "test@test.com",
-    password: "okay@okay.com",
-    workouts: [
-      {
-        name: "Test Workout 1",
-        exercises: [
-          {
-            name: "Bench Press",
-            sets: 3,
-            reps: 10,
-            weight: 135,
-          },
-          {
-            name: "Squat",
-            sets: 3,
-            reps: 10,
-            weight: 135,
-          },
-        ],
-      },
-      {
-        name: "Test Workout 2",
-        exercises: [
-          {
-            name: "Bench Press",
-            sets: 3,
-            reps: 10,
-            weight: 135,
-          },
-          {
-            name: "Squat",
-            sets: 3,
-            reps: 10,
-            weight: 135,
-          },
-        ],
-      },
-    ],
-  });
+  const [user, setUser] = useState(null);
+
+  // Fetch user info on page load
+  useEffect(() => {
+    fetch("http://localhost:8081/getUser?email=test@test")
+      .then((r) => r.json())
+      .then((data) => setUser(data));
+  }, []);
+
+  // Mocking
+  // const [user, setUser] = useState({
+  //   _id: {
+  //     $oid: "656cec43890de477ede116cf",
+  //   },
+  //   email: "test@test.com",
+  //   password: "okay@okay.com",
+  //   workouts: [
+  //     {
+  //       name: "Test Workout 1",
+  //       exercises: [
+  //         {
+  //           name: "Bench Press",
+  //           sets: 3,
+  //           reps: 10,
+  //           weight: 135,
+  //         },
+  //         {
+  //           name: "Squat",
+  //           sets: 3,
+  //           reps: 10,
+  //           weight: 135,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: "Test Workout 2",
+  //       exercises: [
+  //         {
+  //           name: "Bench Press",
+  //           sets: 3,
+  //           reps: 10,
+  //           weight: 135,
+  //         },
+  //         {
+  //           name: "Squat",
+  //           sets: 3,
+  //           reps: 10,
+  //           weight: 135,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // });
 
   // Saves workouts in database when user workouts changes
   useEffect(() => {
+    if (!user) return;
     fetch("http://localhost:8081/updateUser/" + user.email, {
       method: "PUT",
       headers: {
@@ -61,7 +72,7 @@ function App() {
       body: JSON.stringify({ workouts: user.workouts }),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.workouts]);
+  }, [user]);
 
   const logout = () => {
     setUser(null);

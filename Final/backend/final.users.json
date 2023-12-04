@@ -1,0 +1,49 @@
+[{
+  "_id": {
+    "$oid": "656cec43890de477ede116cf"
+  },
+  "email": "test@test.com",
+  "password": "okay@okay.com",
+  "workouts": [
+    {
+      "name": "Test Workout 1",
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": 3,
+          "reps": 10,
+          "weight": 135
+        },
+        {
+          "name": "Squat",
+          "sets": 3,
+          "reps": 10,
+          "weight": 135
+        },
+        {
+          "name": "Rickshaw Carry",
+          "sets": 0,
+          "reps": 0,
+          "weight": 0
+        }
+      ]
+    },
+    {
+      "name": "Test Workout 2",
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": 3,
+          "reps": 10,
+          "weight": 135
+        },
+        {
+          "name": "Squat",
+          "sets": 3,
+          "reps": 10,
+          "weight": 135
+        }
+      ]
+    }
+  ]
+}]
