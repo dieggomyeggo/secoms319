@@ -1,4 +1,4 @@
-const Workouts = ({ user }) => {
+const Workouts = ({ user, setUser }) => {
   const { workouts } = user;
   return (
     <div>
@@ -16,7 +16,7 @@ const Workouts = ({ user }) => {
       </div>
       <ul className="divide-y divide-gray-300">
         {workouts.map((workout, i) => (
-          <li className="py-2">
+          <li className="py-4">
             <div className="flex justify-between gap-x-6 mb-2">
               <div className="min-w-0 flex-auto">
                 <p className="text-2xl">{workout.name}</p>
@@ -49,29 +49,68 @@ const Workouts = ({ user }) => {
                     <th scope="col" class="px-6 py-3">
                       Exercise
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-6 py-3 w-40">
                       Sets
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-6 py-3 w-40">
                       Reps
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="pl-6 py-3 w-40">
                       Weight
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {workout.exercises.map((exercise, i) => (
-                    <tr class="bg-white border-b">
+                  {workout.exercises.map((exercise, j) => (
+                    <tr class="bg-white border-b table-fixed">
                       <th
                         scope="row"
                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                       >
                         {exercise.name}
                       </th>
-                      <td class="px-6 py-4">{exercise.sets}</td>
-                      <td class="px-6 py-4">{exercise.reps}</td>
-                      <td class="px-6 py-4">{exercise.weight}</td>
+                      <td className="px-6 ">
+                        <input
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                          type="number"
+                          defaultValue={exercise.sets}
+                          onChange={(e) => {
+                            if (isNaN(e.target.value)) return;
+                            const newUser = structuredClone(user);
+                            newUser.workouts[i].exercises[j].sets =
+                              Number.parseInt(e.target.value);
+                            setUser(newUser);
+                          }}
+                        ></input>
+                      </td>
+                      <td className="px-6">
+                        <input
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                          type="number"
+                          defaultValue={exercise.reps}
+                          onChange={(e) => {
+                            if (isNaN(e.target.value)) return;
+                            const newUser = structuredClone(user);
+                            newUser.workouts[i].exercises[j].reps =
+                              Number.parseInt(e.target.value);
+                            setUser(newUser);
+                          }}
+                        ></input>
+                      </td>
+                      <td className="px-6">
+                        <input
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                          type="number"
+                          defaultValue={exercise.weight}
+                          onChange={(e) => {
+                            if (isNaN(e.target.value)) return;
+                            const newUser = structuredClone(user);
+                            newUser.workouts[i].exercises[j].weight =
+                              Number.parseInt(e.target.value);
+                            setUser(newUser);
+                          }}
+                        ></input>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

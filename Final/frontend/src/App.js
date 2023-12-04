@@ -50,9 +50,8 @@ function App() {
     ],
   });
 
+  // Saves workouts in database when user workouts changes
   useEffect(() => {
-    console.log("saving");
-    console.log(user);
     fetch("http://localhost:8081/updateUser/" + user.email, {
       method: "PUT",
       headers: {
@@ -60,7 +59,8 @@ function App() {
       },
       body: JSON.stringify({ workouts: user.workouts }),
     });
-  }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.workouts]);
 
   const logout = () => {
     setUser(null);
@@ -120,7 +120,7 @@ function App() {
       </nav>
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {page === "browse" && <Browse user={user} setUser={setUser} />}
-        {page === "my-workouts" && <Workouts user={user} />}
+        {page === "my-workouts" && <Workouts user={user} setUser={setUser} />}
         {page === "login-register" && <Login />}
       </div>
     </div>
