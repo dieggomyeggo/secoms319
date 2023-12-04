@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Browse from "./Browse";
 import Login from "./Login";
 import Workouts from "./Workouts";
@@ -49,6 +49,18 @@ function App() {
       },
     ],
   });
+
+  useEffect(() => {
+    console.log("saving");
+    console.log(user);
+    fetch("http://localhost:8081/updateUser/" + user.email, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ workouts: user.workouts }),
+    });
+  }, [user]);
 
   const logout = () => {
     setUser(null);

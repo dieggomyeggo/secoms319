@@ -160,8 +160,9 @@ const Browse = ({ user, setUser }) => {
               </div>
               <div className="shrink-0 flex flex-row items-center ">
                 <button
-                  className="bg-slate-200 hover:bg-slate-300 rounded-md flex gap-x-1 p-1"
+                  className="bg-slate-200 hover:bg-slate-300 rounded-md flex gap-x-1 p-1 disabled:text-gray-400 disabled:cursor-not-allowed"
                   onClick={() => setBrowseAddModalExercise(exercise)}
+                  disabled={user === null}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +178,7 @@ const Browse = ({ user, setUser }) => {
                       d="M12 4.5v15m7.5-7.5h-15"
                     />
                   </svg>
-                  Add to a workout
+                  {user === null ? "Login to add to workout" : "Add to workout"}
                 </button>
               </div>
             </div>

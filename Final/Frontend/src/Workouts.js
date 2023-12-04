@@ -10,14 +10,14 @@ const Workouts = ({ user }) => {
           athlete, this is where your personal goals, routines, and progress
           come together in a uniquely tailored experience. Discover workouts
           that align perfectly with your fitness goals. From high-intensity
-          interval training to calming yoga sessions, find routines that fit
+          interval training to calming yoga sessions, create routines that fit
           your schedule and preferences.
         </p>
       </div>
       <ul className="divide-y divide-gray-300">
         {workouts.map((workout, i) => (
           <li className="py-2">
-            <div className="flex justify-between gap-x-6">
+            <div className="flex justify-between gap-x-6 mb-2">
               <div className="min-w-0 flex-auto">
                 <p className="text-2xl">{workout.name}</p>
               </div>
@@ -41,11 +41,42 @@ const Workouts = ({ user }) => {
                 </button>
               </div>
             </div>
-            <li>
-              {workout.exercises.map((exercise, i) => (
-                <p>{exercise.name}</p>
-              ))}
-            </li>
+
+            <div class="relative overflow-x-auto border-gray-200 border drop-shadow-sm rounded-lg">
+              <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                  <tr>
+                    <th scope="col" class="px-6 py-3">
+                      Exercise
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                      Sets
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                      Reps
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                      Weight
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {workout.exercises.map((exercise, i) => (
+                    <tr class="bg-white border-b">
+                      <th
+                        scope="row"
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                      >
+                        {exercise.name}
+                      </th>
+                      <td class="px-6 py-4">{exercise.sets}</td>
+                      <td class="px-6 py-4">{exercise.reps}</td>
+                      <td class="px-6 py-4">{exercise.weight}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </li>
         ))}
       </ul>
