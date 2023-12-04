@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import BrowseAddModal from "./BrowseAddModal.js";
 
 const exerciseTypeOptions = [
   { name: "Any Exercise Type", id: "" },
@@ -32,11 +33,12 @@ const muscleGroupOptions = [
   { name: "Shoulders", id: "shoulders" },
 ];
 
-const Browse = () => {
+const Browse = ({ user, setUser }) => {
   const [exerciseType, setExerciseType] = useState(exerciseTypeOptions[0].id);
   const [muscleGroup, setMuscleGroup] = useState(muscleGroupOptions[0].id);
   const [exerciseName, setExerciseName] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [browseAddModalExercise, setBrowseAddModalExercise] = useState(null);
 
   useEffect(() => {
     fetchGetExercises();
@@ -157,7 +159,10 @@ const Browse = () => {
                 </p>
               </div>
               <div className="shrink-0 flex flex-row items-center ">
-                <button className="bg-slate-200 hover:bg-slate-300 rounded-md flex gap-x-1 p-1">
+                <button
+                  className="bg-slate-200 hover:bg-slate-300 rounded-md flex gap-x-1 p-1"
+                  onClick={() => setBrowseAddModalExercise(exercise)}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -182,6 +187,14 @@ const Browse = () => {
           </li>
         ))}
       </ul>
+      {browseAddModalExercise && (
+        <BrowseAddModal
+          exercise={browseAddModalExercise}
+          setBrowseAddModal={setBrowseAddModalExercise} // I clear the modal by setting this to null
+          workouts={user.workouts}
+          setUser={setUser}
+        />
+      )}
     </div>
   );
 };

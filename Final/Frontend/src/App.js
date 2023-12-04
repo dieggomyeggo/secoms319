@@ -1,10 +1,54 @@
 import { useState } from "react";
 import Browse from "./Browse";
 import Login from "./Login";
+import Workouts from "./Workouts";
 
 function App() {
   const [page, setPage] = useState("browse");
-  const [user, setUser] = useState({ email: "blah" });
+  // TODO login / register to get user object
+  const [user, setUser] = useState({
+    _id: {
+      $oid: "656cec43890de477ede116cf",
+    },
+    email: "test@test.com",
+    password: "okay@okay.com",
+    workouts: [
+      {
+        name: "Test Workout 1",
+        exercises: [
+          {
+            name: "Bench Press",
+            sets: 3,
+            reps: 10,
+            weight: 135,
+          },
+          {
+            name: "Squat",
+            sets: 3,
+            reps: 10,
+            weight: 135,
+          },
+        ],
+      },
+      {
+        name: "Test Workout 2",
+        exercises: [
+          {
+            name: "Bench Press",
+            sets: 3,
+            reps: 10,
+            weight: 135,
+          },
+          {
+            name: "Squat",
+            sets: 3,
+            reps: 10,
+            weight: 135,
+          },
+        ],
+      },
+    ],
+  });
 
   const logout = () => {
     setUser(null);
@@ -13,7 +57,7 @@ function App() {
 
   return (
     <div>
-      <nav className="sticky top-0 bg-gray-100 z-50">
+      <nav className="sticky top-0 bg-gray-100 z-10">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <span className="self-center text-2xl font-semibold whitespace-nowrap">
             MuscleMapper
@@ -31,14 +75,16 @@ function App() {
                   Browse Exercises
                 </span>
               </li>
-              <li>
-                <span
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 hover:cursor-pointer"
-                  onClick={() => setPage("my-workouts")}
-                >
-                  My Workouts
-                </span>
-              </li>
+              {user && (
+                <li>
+                  <span
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 hover:cursor-pointer"
+                    onClick={() => setPage("my-workouts")}
+                  >
+                    My Workouts
+                  </span>
+                </li>
+              )}
               <li>
                 {user ? (
                   <span
@@ -61,8 +107,8 @@ function App() {
         </div>
       </nav>
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        {page === "browse" && <Browse />}
-        {page === "my-workouts" && <p>My workouts</p>}
+        {page === "browse" && <Browse user={user} setUser={setUser} />}
+        {page === "my-workouts" && <Workouts user={user} />}
         {page === "login-register" && <Login />}
       </div>
     </div>
