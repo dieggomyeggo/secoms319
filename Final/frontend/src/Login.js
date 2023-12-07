@@ -1,8 +1,6 @@
 //@format
 import { useState } from "react";
 import { login, createUser } from "./apiRequests";
-// flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg
-// flex min-h-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700
 
 export default function Login({ user, setUser }) {
   const [userName, setUserName] = useState("");
@@ -11,9 +9,7 @@ export default function Login({ user, setUser }) {
   const [signInSelected, setSignInSelected] = useState(true);
   const handleSubmit = async (e, p) => {
     if (signInSelected) {
-      await login(e, p).then(
-        (response) => {setUser(response); console.log(user) }
-      )
+      await login(e, p, setUser).then(() => console.log(user))
     } else {
       setUser(await createUser(e, p));
     }
@@ -24,17 +20,15 @@ export default function Login({ user, setUser }) {
         <button
           onClick={() => setSignInSelected(true)}
           aria-current="page"
-          className={`px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 ${
-            signInSelected ? "ring-blue-700 text-blue-700" : ""
-          }`}
+          className={`px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 ${signInSelected ? "ring-blue-700 text-blue-700" : ""
+            }`}
         >
           Sign in
         </button>
         <button
           onClick={() => setSignInSelected(false)}
-          className={`px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 focus:z-10 ${
-            !signInSelected ? "ring-blue-700 text-blue-700" : ""
-          }`}
+          className={`px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 focus:z-10 ${!signInSelected ? "ring-blue-700 text-blue-700" : ""
+            }`}
         >
           Register
         </button>

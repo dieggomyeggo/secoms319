@@ -27,10 +27,10 @@ const host = 'localhost'
  *   These ids can be extracted when the workout is created, then added to this array.
  */
 app.post('/createUser', async (req, res) => {
-    let collection = db.collection('users')
-    let newUser = req.body
-    let result = await collection.insertOne(newUser)
-    res.send(result).status(204)
+  let collection = db.collection('users')
+  let newUser = req.body
+  let result = await collection.insertOne(newUser)
+  res.send(result).status(204)
 })
 
 /*
@@ -38,37 +38,38 @@ app.post('/createUser', async (req, res) => {
  * Return entire user object (including password, we're lazy), frontend saves this
  */
 app.get('/login', async (req, res) => {
-    let collection = db.collection('users')
-    const queryForEmail = {
-        email: req.query.email,
-    }
+  let collection = db.collection('users')
+  const queryForEmail = {
+    email: req.query.email,
+  }
 
-    let result = await collection.findOne(queryForEmail)
+  let result = await collection.findOne(queryForEmail)
 
-    if (result.password != req.query.password) {
-        res.status(400)
-        res.send({ message: 'Wrong password' })
-    } else {
-        res.status(200)
-        res.send(result)
-    }
+  if (result.password != req.query.password) {
+    res.status(400)
+    res.send({ message: 'Wrong password' })
+  } else {
+    res.status(200)
+    console.log(result)
+    res.send(result)
+  }
 })
 
 /*
  * When updating the workouts of a user, make sure to provide the existing array and append anything new
  */
 app.put('/updateUser/:email', async (req, res) => {
-    let collection = db.collection('users')
-    const query = {
-        email: req.params.email,
-    }
+  let collection = db.collection('users')
+  const query = {
+    email: req.params.email,
+  }
 
-    const newUser = {
-        $set: req.body,
-    }
-    let result = collection.updateOne(query, newUser, null)
-    // db.users.updateOne({email:"123"}, {$set: {"password": "diego"}})
-    res.send(result).status(200)
+  const newUser = {
+    $set: req.body,
+  }
+  let result = collection.updateOne(query, newUser, null)
+  // db.users.updateOne({email:"123"}, {$set: {"password": "diego"}})
+  res.send(result).status(200)
 })
 
 // Why do we need this?
@@ -163,31 +164,31 @@ app.put('/updateUser/:email', async (req, res) => {
 
 // Similar to what you would expect from most REST APIs, this api endpoint will accept query parameters this way: "/getExercises?muscle=glutes"
 app.get('/getExercises', async (req, res) => {
-    const { muscle = '', type = '', name = '' } = req.query
+  const { muscle = '', type = '', name = '' } = req.query
 
-    const URL = `https://api.api-ninjas.com/v1/exercises?type=${type}&muscle=${muscle}&name=${name}`
+  const URL = `https://api.api-ninjas.com/v1/exercises?type=${type}&muscle=${muscle}&name=${name}`
 
-    request
-        .get(
-            {
-                url: URL,
-                headers: {
-                    'X-Api-Key': API_KEY,
-                },
-            },
-            function (error, response, body) {
-                if (error) return console.error('Request failed:', error)
-                else if (response.statusCode != 200)
-                    return console.error(
-                        'Error:',
-                        response.statusCode,
-                        body.toString('utf8')
-                    )
-            }
-        )
-        .pipe(res)
+  request
+    .get(
+      {
+        url: URL,
+        headers: {
+          'X-Api-Key': API_KEY,
+        },
+      },
+      function(error, response, body) {
+        if (error) return console.error('Request failed:', error)
+        else if (response.statusCode != 200)
+          return console.error(
+            'Error:',
+            response.statusCode,
+            body.toString('utf8')
+          )
+      }
+    )
+    .pipe(res)
 })
 
 app.listen(port, () => {
-    console.log('App listening at http://%s:%s', host, port)
+  console.log('App listening at http://%s:%s', host, port)
 })

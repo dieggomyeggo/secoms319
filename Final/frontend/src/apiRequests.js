@@ -15,7 +15,7 @@ const createUser = async (e, p) => {
     });
 };
 
-const login = async (e, p) => {
+const login = async (e, p, setUser) => {
   await fetch(
     `http://localhost:8081/login?${new URLSearchParams({
       email: e,
@@ -27,11 +27,8 @@ const login = async (e, p) => {
         "content-type": "application/json",
       },
     }
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      return data
-    });
+  ).then((response) => {return response.json()})
+  .then(data => setUser(data))
 };
 
 export { login, createUser };
