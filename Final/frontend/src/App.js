@@ -141,7 +141,7 @@ function App() {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {page === "browse" && <Browse user={user} setUser={setUser} />}
         {page === "my-workouts" && <Workouts user={user} setUser={setUser} />}
-        {page === "login-register" && <Login />}
+        {page === "login-register" && <Login user={user} setUser={setUser} />}
         {page === "about" && <About />}
       </div>
     </div>
