@@ -1,24 +1,22 @@
 //@format
 import { useState } from "react";
+import { login, createUser } from "./apiRequests";
 // flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg
 // flex min-h-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700
 
-export default function Login({ _, setUser }) {
+export default function Login({ user, setUser }) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [signInSelected, setSignInSelected] = useState(false);
-  const handleSubmit = (e, p) => {
+  const [signInSelected, setSignInSelected] = useState(true);
+  const handleSubmit = async (e, p) => {
     if (signInSelected) {
-      fetch(`http://localhost:8081/getUser?email=${email}`)
-        .then((r) => {
-          r.json();
-        })
-        .then((data) => setUser(data));
+      await login(e, p).then(
+        (response) => {setUser(response); console.log(user) }
+      )
     } else {
+      setUser(await createUser(e, p));
     }
-    console.log(e, p);
-    console.log(signInSelected);
   };
   return (
     <div className="flex min-h-full flex-1 flex-col bg-white rounded-lg shadow-xl justify-center md:mt-10 sm:max-w-md xl:p-10 ">
@@ -27,7 +25,7 @@ export default function Login({ _, setUser }) {
           onClick={() => setSignInSelected(true)}
           aria-current="page"
           className={`px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 ${
-            signInSelected && "ring-blue-700 text-blue-700"
+            signInSelected ? "ring-blue-700 text-blue-700" : ""
           }`}
         >
           Sign in
@@ -35,7 +33,7 @@ export default function Login({ _, setUser }) {
         <button
           onClick={() => setSignInSelected(false)}
           className={`px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 focus:z-10 ${
-            !signInSelected && "ring-blue-700 text-blue-700"
+            !signInSelected ? "ring-blue-700 text-blue-700" : ""
           }`}
         >
           Register
@@ -68,7 +66,6 @@ export default function Login({ _, setUser }) {
                   required
                   className="block w-full rounded-lg border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   onChange={(e) => {
-                    console.log(e.target.value);
                     setUserName(e.target.value);
                   }}
                 />
@@ -91,7 +88,6 @@ export default function Login({ _, setUser }) {
                 required
                 className="block w-full rounded-lg border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 onChange={(e) => {
-                  console.log(e.target.value);
                   setEmail(e.target.value);
                 }}
               />

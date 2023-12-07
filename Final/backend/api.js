@@ -37,9 +37,21 @@ app.post('/createUser', async (req, res) => {
  * TODO: Login validation — given email, is password correct?
  * Return entire user object (including password, we're lazy), frontend saves this
  */
-app.post('/login', async (req, res) => {
-    let dummy = { email: 'blah' }
-    res.send(dummy).status(200)
+app.get('/login', async (req, res) => {
+    let collection = db.collection('users')
+    const queryForEmail = {
+        email: req.query.email,
+    }
+
+    let result = await collection.findOne(queryForEmail)
+
+    if (result.password != req.query.password) {
+        res.status(400)
+        res.send({ message: 'Wrong password' })
+    } else {
+        res.status(200)
+        res.send(result)
+    }
 })
 
 /*
@@ -74,13 +86,18 @@ app.put('/updateUser/:email', async (req, res) => {
 
 // Replace with login (validate password, etc)
 // And maybe don't send password back
-app.get('/getUser/', async (req, res) => {
-    const query = req.body
-    const results = await db.collection('users').findOne(query)
-    console.log('results: ', results)
-    if (!results) res.send('not found').status(404)
-    else res.send(results).status(200)
-})
+// app.get('/getUser/', async (req, res) => {
+//   const e = req.query.email
+//   const p = req.query.password
+//   const query = {
+//     email: e,
+//     password: p
+//   }
+//   const results = await db.collection('users').findOne(query)
+//   console.log('results: ', results)
+//   if (!results) res.send('not found').status(404)
+//   else res.send(results).status(200)
+// })
 
 // IMO out of scope
 // app.delete('/deleteUser', async (req, res) => {

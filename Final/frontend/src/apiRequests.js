@@ -1,5 +1,5 @@
-const createUser = (e, p) => {
-  fetch("http://localhost:8081/createUser", {
+const createUser = async (e, p) => {
+  await fetch("http://localhost:8081/createUser", {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -10,13 +10,28 @@ const createUser = (e, p) => {
     }),
   })
     .then((response) => response.json())
-    .then((data) => console.log(data));
+    .then((data) => {
+      console.log(data);
+    });
 };
 
-const getUser = (e, p) => {
-  fetch("http://localhost:8081/" + e)
+const login = async (e, p) => {
+  await fetch(
+    `http://localhost:8081/login?${new URLSearchParams({
+      email: e,
+      password: p,
+    })}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  )
     .then((response) => response.json())
-    .then((data) => data);
+    .then((data) => {
+      return data
+    });
 };
 
-export { getUser, createUser };
+export { login, createUser };

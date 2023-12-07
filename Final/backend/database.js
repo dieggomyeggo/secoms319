@@ -7,5 +7,5 @@ try {
 } catch (e) {
     console.error(e)
 }
-let db = connection.db('final')
+let db = connection.db('Final')
 export default db
