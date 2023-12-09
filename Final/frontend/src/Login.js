@@ -9,29 +9,30 @@ export default function Login({ setUser, setPage }) {
   const [signInSelected, setSignInSelected] = useState(true);
   const handleSubmit = async (e, p) => {
     if (signInSelected) {
-      await login(e, p, setUser)
-      setPage("browse")
-
+      await login(e, p, setUser);
+      setPage("browse");
     } else {
       await createUser(e, p, userName, setUser);
-      setPage("browse")
+      setPage("browse");
     }
   };
   return (
-    <div className="flex min-h-full flex-1 flex-col bg-white rounded-lg shadow-xl justify-center md:mt-10 sm:max-w-md xl:p-10 " hidden={user != null}>
+    <div className="flex min-h-full flex-1 flex-col bg-white rounded-lg shadow-xl justify-center md:mt-10 sm:max-w-md xl:p-10 ">
       <div className="text-center">
         <button
           onClick={() => setSignInSelected(true)}
           aria-current="page"
-          className={`px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 ${signInSelected ? "ring-blue-700 text-blue-700" : ""
-            }`}
+          className={`px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 ${
+            signInSelected ? "ring-blue-700 text-blue-700" : ""
+          }`}
         >
           Sign in
         </button>
         <button
           onClick={() => setSignInSelected(false)}
-          className={`px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 focus:z-10 ${!signInSelected ? "ring-blue-700 text-blue-700" : ""
-            }`}
+          className={`px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 focus:z-10 ${
+            !signInSelected ? "ring-blue-700 text-blue-700" : ""
+          }`}
         >
           Register
         </button>

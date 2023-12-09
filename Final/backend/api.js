@@ -30,6 +30,7 @@ app.post('/createUser', async (req, res) => {
   let collection = db.collection('users')
   let newUser = req.body
   let result = await collection.insertOne(newUser)
+  console.log(result)
   res.send(result).status(204)
 })
 
