@@ -2,14 +2,14 @@
 import { useState } from "react";
 import { login, createUser } from "./apiRequests";
 
-export default function Login({ setUser, setPage }) {
+export default function Login({ user, setUser, setPage }) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signInSelected, setSignInSelected] = useState(true);
   const handleSubmit = async (e, p) => {
     if (signInSelected) {
-      await login(e, p, setUser);
+      await login(e, p, user, setUser);
       setPage("browse");
     } else {
       await createUser(e, p, userName, setUser);

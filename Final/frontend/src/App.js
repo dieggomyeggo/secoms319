@@ -16,6 +16,7 @@ function App() {
       .then((data) => setUser(data));
   }, []);
 
+
   // Mocking
   // const [user, setUser] = useState({
   //   _id: {
@@ -62,17 +63,17 @@ function App() {
   // });
 
   // Saves workouts in database when user workouts changes
-  useEffect(() => {
-    if (!user) return;
-    fetch("http://localhost:8081/updateUser/" + user.email, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ workouts: user.workouts }),
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) return;
+  //   fetch("http://localhost:8081/updateUser/" + user.email, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ workouts: user.workouts }),
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [user]);
 
   const logout = () => {
     setUser(null);

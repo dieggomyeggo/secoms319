@@ -53,7 +53,6 @@ const Browse = ({ user, setUser }) => {
 
   const fetchGetExercises = async () => {
     const URL = `http://localhost:8081/getExercises?type=${exerciseType}&muscle=${muscleGroup}&name=${exerciseName}`;
-    console.log(URL);
     fetch(URL)
       .then((r) => r.json())
       .then((data) => setSearchResults(data));
