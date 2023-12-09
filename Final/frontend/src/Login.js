@@ -2,20 +2,23 @@
 import { useState } from "react";
 import { login, createUser } from "./apiRequests";
 
-export default function Login({ user, setUser }) {
+export default function Login({ setUser, setPage }) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signInSelected, setSignInSelected] = useState(true);
   const handleSubmit = async (e, p) => {
     if (signInSelected) {
-      await login(e, p, setUser).then(() => console.log(user))
+      await login(e, p, setUser)
+      setPage("browse")
+
     } else {
-      setUser(await createUser(e, p));
+      await createUser(e, p, userName, setUser);
+      setPage("browse")
     }
   };
   return (
-    <div className="flex min-h-full flex-1 flex-col bg-white rounded-lg shadow-xl justify-center md:mt-10 sm:max-w-md xl:p-10 ">
+    <div className="flex min-h-full flex-1 flex-col bg-white rounded-lg shadow-xl justify-center md:mt-10 sm:max-w-md xl:p-10 " hidden={user != null}>
       <div className="text-center">
         <button
           onClick={() => setSignInSelected(true)}
