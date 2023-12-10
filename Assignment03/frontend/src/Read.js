@@ -11,9 +11,20 @@ const Read = () => {
       </div>
       <div
         hidden={!highlightedImage}
-        className="col-start-2  col-end-7 rounded-2xl text-center"
+        className="col-span-4 rounded-2xl text-center"
       >
         <img className="rounded-lg " src={highlightedImage} alt="ph1" />
+      </div>
+      <div className="col-span-2 bg-gray-800 rounded-2xl " hidden={!highlightedImage}> 
+        <h2 className="p-8 text-4xl align-center font-extrabold tracking-tight leading-none text-gray-100 md:text-5l lg:text-xl ">
+        Placeholder title
+        </h2>
+        <p className = "pl-8">
+          Placeholder description
+        </p>
+        <p className = "pl-8">
+          Placeholder price
+        </p>
       </div>
       <div className="col-auto">
         <img
