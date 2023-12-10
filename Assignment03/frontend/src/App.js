@@ -5,6 +5,7 @@ import Read from './Read'
 import { useState } from 'react'
 import Create from './Create'
 import Delete from './Delete'
+import Update from './Update'
 
 function App() {
   const [page, setPage] = useState('read')
@@ -74,6 +75,7 @@ function App() {
         {page === 'read' && <Read />}
         {page === 'create' && <Create />}
         {page === 'delete' && <Delete />}
+        {page === 'update' && <Update />}
       </div>
     </div>
   )
