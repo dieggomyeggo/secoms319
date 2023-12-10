@@ -1,5 +1,8 @@
+import { useState } from "react";
+import CreateWorkoutModal from "./CreateWorkoutModal";
 const Workouts = ({ user, setUser }) => {
   const { workouts } = user;
+  const [createWorkoutModal, setCreateWorkoutModal] = useState(false);
   return (
     <div>
       <div className="flex-auto mb-4">
@@ -16,7 +19,7 @@ const Workouts = ({ user, setUser }) => {
       </div>
       <ul className="divide-y divide-gray-300">
         {workouts.map((workout, i) => {
-
+          if (typeof workout != 'string')
           return (
             <li className="py-4">
               <div className="flex justify-between gap-x-6 mb-2">
@@ -119,9 +122,39 @@ const Workouts = ({ user, setUser }) => {
                 </table>
               </div>
             </li>
-          )
+          );
         })}
       </ul>
+      <div className="shrink-0 flex flex-row items-center ">
+        <button
+          className="bg-slate-200 hover:bg-slate-300 rounded-md flex gap-x-1 p-1"
+          onClick={() => setCreateWorkoutModal(true)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          Add Workout
+        </button>
+      </div>
+      {createWorkoutModal && (
+        <CreateWorkoutModal
+          setCreateWorkoutModal={setCreateWorkoutModal}
+          workouts={workouts}
+          user={user}
+          setUser={setUser}
+        />
+      )}
     </div>
   );
 };

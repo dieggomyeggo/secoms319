@@ -9,63 +9,11 @@ function App() {
   // TODO login / register to get user object
   const [user, setUser] = useState(null);
 
-  // Fetch user info on page load
-  useEffect(() => {
-    fetch("http://localhost:8081/getUser?email=test@test")
-      .then((r) => r.json())
-      .then((data) => setUser(data));
-  }, []);
-
-  // Mocking
-  // const [user, setUser] = useState({
-  //   _id: {
-  //     $oid: "656cec43890de477ede116cf",
-  //   },
-  //   email: "test@test.com",
-  //   password: "okay@okay.com",
-  //   workouts: [
-  //     {
-  //       name: "Test Workout 1",
-  //       exercises: [
-  //         {
-  //           name: "Bench Press",
-  //           sets: 3,
-  //           reps: 10,
-  //           weight: 135,
-  //         },
-  //         {
-  //           name: "Squat",
-  //           sets: 3,
-  //           reps: 10,
-  //           weight: 135,
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       name: "Test Workout 2",
-  //       exercises: [
-  //         {
-  //           name: "Bench Press",
-  //           sets: 3,
-  //           reps: 10,
-  //           weight: 135,
-  //         },
-  //         {
-  //           name: "Squat",
-  //           sets: 3,
-  //           reps: 10,
-  //           weight: 135,
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // });
-
   // Saves workouts in database when user workouts changes
   useEffect(() => {
     if (!user) return;
+    console.log(user)
     for (let i in user.workouts) {
-      console.log(user.workouts[i])
       fetch("http://localhost:8081/updateWorkout/" + user.workouts[i]._id, {
         method: "PUT",
         headers: {

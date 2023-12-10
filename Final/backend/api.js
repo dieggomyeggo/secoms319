@@ -74,6 +74,32 @@ app.put('/updateUser/:email', async (req, res) => {
   res.send(result).status(200)
 })
 
+app.put('updateUserWorkouts/', async(req, res) => {
+  let collection = db.collection('users')
+  const query = {
+    email: req.query.email,
+  }
+
+  const ids = []
+  console.log("IDS BEFORE", req.body.workouts)
+  for (let i = 0; i < req.body.workouts.size; i++ ) {
+    ids.push(new ObjectId(req.body.workouts[i]))
+  }
+  console.log("IDS AFTER", ids)
+
+  const newUser = {
+    $set: {
+      workouts: [
+        ...ids,
+      ]
+    }
+  }
+  let result = collection.updateOne(query, newUser, null)
+  res.send(result).status(200)
+
+
+})
+
 // WORKOUTS
 // app.get('/getWorkouts', async (_, res) => {
 //     console.log('Node connected successfully to GET MongoDB')
@@ -92,6 +118,7 @@ app.post('/createWorkout', async (req, res) => {
   // params = JSON.parse(req.body)
   let newWorkout = req.body
   let result = await collection.insertOne(newWorkout)
+  console.log(result)
   res.send(result).status(204)
 })
 
@@ -128,9 +155,7 @@ app.put('/updateWorkout/:id', async (req, res) => {
   const newWorkout = {
     $set: req.body,
   }
-  console.log(query)
   let result = await collection.updateOne(query, newWorkout, null)
-  console.log('result\n', result)
   res.send(result).status(200)
 })
 
@@ -162,5 +187,4 @@ app.get('/getExercises', async (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log('App listening at http://%s:%s', host, port)
 })
