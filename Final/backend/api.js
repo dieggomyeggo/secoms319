@@ -30,10 +30,9 @@ app.post('/createUser', async (req, res) => {
   let collection = db.collection('users')
   let newUser = req.body
   if (newUser.workouts == null) {
-    newUser = {...newUser, workouts: []}
+    newUser = { ...newUser, workouts: [] }
   }
   let result = await collection.insertOne(newUser)
-  console.log(result)
   res.send(result).status(204)
 })
 
@@ -54,7 +53,6 @@ app.get('/login', async (req, res) => {
     res.send({ message: 'Wrong password' })
   } else {
     res.status(200)
-    console.log(result)
     res.send(result)
   }
 })
@@ -90,11 +88,11 @@ app.put('/updateUser/:email', async (req, res) => {
 // })
 
 app.post('/createWorkout', async (req, res) => {
-    let collection = db.collection('workouts')
-    // params = JSON.parse(req.body)
-    let newWorkout = req.body
-    let result = await collection.insertOne(newWorkout)
-    res.send(result).status(204)
+  let collection = db.collection('workouts')
+  // params = JSON.parse(req.body)
+  let newWorkout = req.body
+  let result = await collection.insertOne(newWorkout)
+  res.send(result).status(204)
 })
 
 /*
@@ -103,33 +101,38 @@ app.post('/createWorkout', async (req, res) => {
  */
 
 app.get('/getWorkouts/:id', async (req, res) => {
-    const workoutsId = req.params.id
-    console.log('Workout to find :', workoutsId)
+  const workoutsId = req.params.id
 
-    const o_id = new ObjectId(workoutsId)
-    const query = {
-        _id: o_id,
-    }
-    console.log('HERE IS THE QUERY', query)
-    const results = await db.collection('workouts').findOne(query)
-    console.log('Results :', results)
-    if (!results) res.send('Not Found').status(404)
-    else res.send(results).status(200)
+  const o_id = new ObjectId(workoutsId)
+  const query = {
+    _id: o_id,
+  }
+  const results = await db.collection('workouts').findOne(query)
+  if (!results) res.send('Not Found').status(404)
+  else res.send(results).status(200)
 })
 
-// app.put('/updateWorkout/:id', async (req, res) => {
-//     let collection = db.collection('workouts')
+app.put('/updateWorkout/:id', async (req, res) => {
+  let collection = db.collection('workouts')
 
-//     const query = {
-//         _id: req.params.id,
-//     }
+  if (req.params.id == "undefined") {
+    res.send({message: "No id provided"}).status(400)
+    return;
+  }
+  const o_id = new ObjectId(req.params.id)
 
-//     const newWorkout = {
-//         $set: req.body,
-//     }
-//     let result = collection.updateOne(query, newWorkout, null)
-//     res.send(result).status(200)
-// })
+  const query = {
+    _id: o_id,
+  }
+
+  const newWorkout = {
+    $set: req.body,
+  }
+  console.log(query)
+  let result = await collection.updateOne(query, newWorkout, null)
+  console.log('result\n', result)
+  res.send(result).status(200)
+})
 
 // Similar to what you would expect from most REST APIs, this api endpoint will accept query parameters this way: "/getExercises?muscle=glutes"
 app.get('/getExercises', async (req, res) => {

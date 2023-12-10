@@ -16,7 +16,6 @@ function App() {
       .then((data) => setUser(data));
   }, []);
 
-
   // Mocking
   // const [user, setUser] = useState({
   //   _id: {
@@ -63,17 +62,20 @@ function App() {
   // });
 
   // Saves workouts in database when user workouts changes
-  // useEffect(() => {
-  //   if (!user) return;
-  //   fetch("http://localhost:8081/updateUser/" + user.email, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ workouts: user.workouts }),
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [user]);
+  useEffect(() => {
+    if (!user) return;
+    for (let i in user.workouts) {
+      console.log(user.workouts[i])
+      fetch("http://localhost:8081/updateWorkout/" + user.workouts[i]._id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ exercises: user.workouts[i].exercises }),
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const logout = () => {
     setUser(null);
@@ -142,7 +144,9 @@ function App() {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {page === "browse" && <Browse user={user} setUser={setUser} />}
         {page === "my-workouts" && <Workouts user={user} setUser={setUser} />}
-        {page === "login-register" && <Login user={user} setUser={setUser} setPage={setPage} />}
+        {page === "login-register" && (
+          <Login user={user} setUser={setUser} setPage={setPage} />
+        )}
         {page === "about" && <About />}
       </div>
     </div>
