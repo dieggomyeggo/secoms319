@@ -3,12 +3,15 @@ import About from './About'
 import Read from './Read'
 
 import { useState } from 'react'
+import { getAllProducts } from './apiRequests.js'
 import Create from './Create'
 import Delete from './Delete'
 import Update from './Update'
 
 function App() {
   const [page, setPage] = useState('read')
+  const [products, setProducts] = useState([])
+  getAllProducts(setProducts)
   return (
     <div>
       <nav className="sticky top-0 bg-gray-100 z-10">
@@ -72,7 +75,7 @@ function App() {
         {/* <Login user={user} setUser={setUser} setPage={setPage} /> */}
         {/* )} */}
         {page === 'about' && <About />}
-        {page === 'read' && <Read />}
+        {page === 'read' && <Read products={products} />}
         {page === 'create' && <Create />}
         {page === 'delete' && <Delete />}
         {page === 'update' && <Update />}

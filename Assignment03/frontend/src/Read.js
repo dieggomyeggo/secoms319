@@ -1,7 +1,7 @@
 //@format
 import { useState } from 'react'
-const Read = () => {
-  const [highlightedImage, setHighlightedImage] = useState(null)
+const Read = ({ products }) => {
+  const [selectedProduct, setSelectedProduct] = useState({image: null})
   return (
     <div className="grid grid-cols-6 gap-4 justify-center">
       <div className="col-span-6 mt-4 p-8 bg-gray-800 rounded-2xl text-center">
@@ -10,108 +10,37 @@ const Read = () => {
         </h1>
       </div>
       <div
-        hidden={!highlightedImage}
+        hidden={!selectedProduct.image}
         className="col-span-4 rounded-2xl text-center"
       >
-        <img className="rounded-lg " src={highlightedImage} alt="ph1" />
+        <img className="rounded-lg " src={selectedProduct.image} alt="ph1" />
       </div>
-      <div className="col-span-2 bg-gray-800 rounded-2xl " hidden={!highlightedImage}> 
+
+      <div
+        className="col-span-2 bg-gray-800 rounded-2xl "
+        hidden={!selectedProduct.image}
+      >
         <h2 className="p-8 text-4xl align-center font-extrabold tracking-tight leading-none text-gray-100 md:text-5l lg:text-xl ">
-        Placeholder title
+          {selectedProduct ? selectedProduct.title : ''}
         </h2>
-        <p className = "pl-8">
-          Placeholder description
+        <p className="pl-8">
+          {selectedProduct ? selectedProduct.description : ''}
         </p>
-        <p className = "pl-8">
-          Placeholder price
-        </p>
-      </div>
-      <div className="col-auto">
-        <img
-          className="rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
-          alt="ph2"
-          onClick={() =>
-            setHighlightedImage(
-              'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg'
-            )
-          }
-        />
-      </div>
-      <div className="col-auto">
-        <img
-          className="h-auto max-w-full rounded-lg "
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-          alt="ph3"
-          onClick={() =>
-            setHighlightedImage(
-              'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg'
-            )
-          }
-        />
-      </div>
-      <div className="col-auto">
-        <img
-          className="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
-          alt="ph4"
-          onClick={() =>
-            setHighlightedImage(
-              'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg'
-            )
-          }
-        />
-      </div>
-      <div className="col-auto">
-        <img
-          className="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
-          alt="ph4"
-          onClick={() =>
-            setHighlightedImage(
-              'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg'
-            )
-          }
-        />
+        <p className="pl-8">{selectedProduct ? selectedProduct.price : ''}</p>
       </div>
 
-      <div className="col-auto">
-        <img
-          className="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
-          alt="ph4"
-          onClick={() =>
-            setHighlightedImage(
-              'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg'
-            )
-          }
-        />
-      </div>
-
-      <div className="col-auto">
-        <img
-          className="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
-          alt="ph4"
-          onClick={() =>
-            setHighlightedImage(
-              'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg'
-            )
-          }
-        />
-      </div>
-      <div className="col-auto">
-        <img
-          className="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
-          alt="ph5"
-          onClick={() =>
-            setHighlightedImage(
-              'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg'
-            )
-          }
-        />
-      </div>
+      {products.map((product) => {
+        return (
+          <div className="col-auto ">
+            <img
+              className="h-auto max-w-full rounded-lg"
+              src={product.image}
+              alt="ph2"
+              onClick={() => setSelectedProduct(product)}
+            />
+          </div>
+        )
+      })}
     </div>
   )
 }
