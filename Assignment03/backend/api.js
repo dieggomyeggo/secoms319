@@ -59,6 +59,11 @@ app.put("/updatePrice/", async (req, res) => {
   res.send("Okay!!!").status(200);
 });
 
+app.delete("/deleteProduct/", async (req, res) => {
+  let result = await collection.deleteOne(req.body);
+  res.send(result).status(200);
+});
+
 app.listen(port, () => {
   console.log("App listening at http://%s:%s", host, port);
 });
