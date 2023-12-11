@@ -1,7 +1,7 @@
 //@format
 import { useState } from 'react'
 const Read = ({ products }) => {
-  const [selectedProduct, setSelectedProduct] = useState({image: null})
+  const [selectedProduct, setSelectedProduct] = useState({ image: null })
   return (
     <div className="grid grid-cols-6 gap-4 justify-center">
       <div className="col-span-6 mt-4 p-8 bg-gray-800 rounded-2xl text-center">
@@ -13,7 +13,11 @@ const Read = ({ products }) => {
         hidden={!selectedProduct.image}
         className="col-span-4 rounded-2xl text-center"
       >
-        <img className="rounded-lg " src={selectedProduct.image} alt={selectedProduct.title} />
+        <img
+          className="rounded-lg "
+          src={selectedProduct.image}
+          alt={selectedProduct.title}
+        />
       </div>
 
       <div
@@ -23,10 +27,12 @@ const Read = ({ products }) => {
         <h2 className="p-8 text-4xl align-center font-extrabold tracking-tight leading-none text-gray-100 md:text-5l lg:text-xl ">
           {selectedProduct ? selectedProduct.title : ''}
         </h2>
-        <p className="pl-8">
+        <p className="pl-8 text-gray-50">
           {selectedProduct ? selectedProduct.description : ''}
         </p>
-        <p className="pl-8">{selectedProduct ? selectedProduct.price : ''}</p>
+        <p className="pl-8 text-gray-50">
+          {selectedProduct ? selectedProduct.price : ''}
+        </p>
       </div>
 
       {products.map((product) => {
