@@ -27,11 +27,20 @@ const Read = ({ products }) => {
         <h2 className="p-8 text-4xl align-center font-extrabold tracking-tight leading-none text-gray-100 md:text-5l lg:text-xl ">
           {selectedProduct ? selectedProduct.title : ''}
         </h2>
-        <p className="pl-8 text-gray-50">
-          {selectedProduct ? selectedProduct.description : ''}
+        <p className="px-8 text-gray-50 font-bold">
+          Price: {selectedProduct ? selectedProduct.price : ''}
         </p>
-        <p className="pl-8 text-gray-50">
-          {selectedProduct ? selectedProduct.price : ''}
+        <p className="px-8 text-gray-50 font-bold">
+          Rating:{' '}
+          {selectedProduct && selectedProduct.rating
+            ? selectedProduct.rating.rate
+            : ''}
+        </p>
+        <p className="px-8 text-gray-50 font-bold">
+          ID: {selectedProduct ? selectedProduct.id : ''}
+        </p>
+        <p className="px-8 text-gray-50">
+          {selectedProduct ? selectedProduct.description : ''}
         </p>
       </div>
 

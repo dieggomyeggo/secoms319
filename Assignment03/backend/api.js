@@ -51,9 +51,12 @@ app.post("/addProduct", async (req, res) => {
   res.send(result).status(204);
 });
 
-app.delete("/deleteProduct/", async (req, res) => {
-  let result = await collection.deleteOne(req.body);
-  res.send(result).status(200);
+app.put("/updatePrice/", async (req, res) => {
+  await collection.updateOne(
+    { id: req.body.id },
+    { $set: { price: req.body.price } }
+  );
+  res.send("Okay!!!").status(200);
 });
 
 app.listen(port, () => {

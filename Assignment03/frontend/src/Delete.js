@@ -1,9 +1,10 @@
 import { useState } from 'react'
+import { deleteProduct } from './apiRequests'
 
-const Delete = () => {
+const Delete = ({ products }) => {
   const [id, setId] = useState('')
   return (
-    <div >
+    <div>
       <label
         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
         for="grid-first-name"
@@ -18,16 +19,40 @@ const Delete = () => {
         onChange={(e) => setId(e.target.value)}
       />
 
-      <div hidden={id == ''} className="rounded-2xl text-center">
-        <img className="rounded-lg " src={''} alt="ph1" />
-      </div>
-      <div className="col-span-2 bg-gray-800 rounded-2xl " hidden={id == ''}>
-        <h2 className="p-8 text-4xl align-center font-extrabold tracking-tight leading-none text-gray-100 md:text-5l lg:text-xl ">
-          Placeholder title
-        </h2>
-        <p className="pl-8">Placeholder description</p>
-        <p className="pl-8">Placeholder price</p>
-      </div>
+      {products
+        .filter((product) => {
+          return product.id == id
+        })
+        .map((product) => {
+          return (
+            <div
+              className="col-span-2 bg-gray-800 rounded-2xl "
+              hidden={id === ''}
+            >
+              <h2 className="p-8 text-4xl align-center font-extrabold tracking-tight leading-none text-gray-100 md:text-5l lg:text-xl">
+                {product.title}
+              </h2>
+              <img
+                className="w-64 rounded-lg px-8"
+                src={product.image}
+                alt={product.title}
+              />
+              <p className="px-8 text-gray-50">Price: {product.price}</p>
+              <p className="px-8 text-gray-50">Rating: {product.rating.rate}</p>
+              <p className="px-8 text-gray-50">ID: {product.id}</p>
+              <p className="px-8 text-gray-50">{product.description}</p>
+              <button
+                className="mx-8 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                onClick={() => {
+                  deleteProduct(product.id)
+                  setId('')
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          )
+        })}
     </div>
   )
 }
