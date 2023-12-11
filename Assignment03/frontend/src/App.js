@@ -2,7 +2,7 @@ import './App.css'
 import About from './About'
 import Read from './Read'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getAllProducts } from './apiRequests.js'
 import Create from './Create'
 import Delete from './Delete'
@@ -11,7 +11,10 @@ import Update from './Update'
 function App() {
   const [page, setPage] = useState('read')
   const [products, setProducts] = useState([])
-  getAllProducts(setProducts)
+
+  if (page === 'read') {
+    getAllProducts(setProducts)
+  }
   return (
     <div>
       <nav className="sticky top-0 bg-gray-100 z-10">
@@ -76,7 +79,7 @@ function App() {
         {/* )} */}
         {page === 'about' && <About />}
         {page === 'read' && <Read products={products} />}
-        {page === 'create' && <Create />}
+        {page === 'create' && <Create setPage={setPage} />}
         {page === 'delete' && <Delete />}
         {page === 'update' && <Update />}
       </div>

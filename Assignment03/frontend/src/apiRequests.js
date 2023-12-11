@@ -8,4 +8,15 @@ const getAllProducts = async (setProducts) =>
     .then((response) => response.json())
     .then((data) => setProducts(data))
 
-export {getAllProducts }
+const createProduct = async (product, setProducts) => {
+  await fetch('http://localhost:8081/addProduct', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({...product, image: '../../images/no_image.jpg'})
+  })
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+}
+export {getAllProducts, createProduct}

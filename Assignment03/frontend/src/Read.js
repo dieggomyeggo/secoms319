@@ -13,7 +13,7 @@ const Read = ({ products }) => {
         hidden={!selectedProduct.image}
         className="col-span-4 rounded-2xl text-center"
       >
-        <img className="rounded-lg " src={selectedProduct.image} alt="ph1" />
+        <img className="rounded-lg " src={selectedProduct.image} alt={selectedProduct.title} />
       </div>
 
       <div
@@ -35,7 +35,7 @@ const Read = ({ products }) => {
             <img
               className="h-auto max-w-full rounded-lg"
               src={product.image}
-              alt="ph2"
+              alt={product.title}
               onClick={() => setSelectedProduct(product)}
             />
           </div>

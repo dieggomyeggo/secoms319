@@ -1,9 +1,19 @@
 import { useState } from 'react'
-const Create = () => {
+import { createProduct } from './apiRequests'
+const Create = ({setPage}) => {
   const [title, setTitle] = useState('')
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('')
   const [description, setDescription] = useState('')
+  const handleClick = () => {
+    createProduct({
+      title: title,
+      price: price,
+      category: category,
+      description: description,
+    })
+    setPage('read')
+  }
   return (
     <div>
       <form className="w-full max-w-lg">
@@ -84,7 +94,7 @@ const Create = () => {
           </div>
         </div>
         <div class="flex items-center justify-between">
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={handleClick}>
             Create Product
           </button>
         </div>
