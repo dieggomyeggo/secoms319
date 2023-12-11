@@ -12,9 +12,10 @@ function App() {
   const [page, setPage] = useState('read')
   const [products, setProducts] = useState([])
 
-  if (page === 'read') {
-    getAllProducts(setProducts)
-  }
+  useEffect(() => {
+    page === 'read' && getAllProducts(setProducts)
+  }, [page])
+
   return (
     <div>
       <nav className="sticky top-0 bg-gray-100 z-10">
