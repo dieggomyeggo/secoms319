@@ -80,7 +80,12 @@ const updateUserWorkout = async (user, workout_ids) => {
     });
 };
 
-const createWorkout = async (user, setUser, workoutName) => {
+const createWorkout = async (
+  user,
+  setUser,
+  workoutName,
+  setCreateWorkoutModal
+) => {
   await fetch(`http://localhost:8081/createWorkout/`, {
     method: 'POST',
     headers: {
@@ -95,11 +100,10 @@ const createWorkout = async (user, setUser, workoutName) => {
       return response.json();
     })
     .then((data) => {
-      const workouts = user.workouts;
       setUser({
         ...user,
         workouts: [
-          ...workouts,
+          ...user.workouts,
           {
             _id: data.insertedId,
             name: workoutName,
@@ -108,11 +112,15 @@ const createWorkout = async (user, setUser, workoutName) => {
         ],
       });
 
-      const workout_ids = [];
-      for (let i = 0; i < user.workouts.length; i++) {
-        workout_ids.push(user.workouts[i]._id);
-      }
-      updateUserWorkout(user, workout_ids);
+      const workouts = [];
+      user.workouts.forEach((workout) => {
+        if (typeof workout == 'string') {
+          workouts.push(workout);
+        }
+      });
+
+      updateUserWorkout(user, [...workouts, data.insertedId]);
+      setCreateWorkoutModal(false);
     });
 };
 
@@ -124,14 +132,12 @@ const deleteWorkout = async (user, setUser, workout_id) => {
     },
   }).then((res) => {
     const workouts = [];
-    console.log(workout_id)
     user.workouts.forEach((workout) => {
       if (typeof workout == 'string') {
         if (workout !== workout_id) workouts.push(workout);
       }
     });
     console.log(workouts);
-    setUser({ ...user, workouts: workouts });
     updateUserWorkout(user, workouts);
 
     return res.json();

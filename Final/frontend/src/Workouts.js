@@ -7,9 +7,11 @@ const Workouts = ({ user, setUser }) => {
 
   const handleDelete = (id) => {
     const newUser = structuredClone(user);
+    console.log(newUser.workouts);
     newUser.workouts = newUser.workouts.filter(
-      (workout) => workout._id != workout._id
+      (workout) => workout._id !== id
     );
+    console.log(newUser)
     setUser(newUser);
     deleteWorkout(user, setUser, id);
   };
@@ -166,7 +168,6 @@ const Workouts = ({ user, setUser }) => {
       {createWorkoutModal && (
         <CreateWorkoutModal
           setCreateWorkoutModal={setCreateWorkoutModal}
-          workouts={workouts}
           user={user}
           setUser={setUser}
         />
