@@ -54,22 +54,28 @@ const BrowseAddModal = ({ exercise, setBrowseAddModal, workouts, setUser }) => {
                       className="text-gray-500"
                       onChange={(e) => setSelected(e.target.value)}
                     >
-                      {workouts.map((workout, i) => (
-                        <div key={`workout-${i}`}>
-                          <input
-                            type="radio"
-                            id={`workout-radio-${workout.name}`}
-                            value={workout.name}
-                            name="workout-radio-dropdown"
-                            className="mr-2"
-                            selected={selected === workout.name}
-                          />
-                          <label htmlFor={`workout-radio-${workout.name}`}>
-                            {workout.name}
-                          </label>{' '}
-                        </div>
-                      ))}
-                    </fieldset>
+                      {workouts.map((workout, i) => {
+                        if (typeof workout == 'string') {
+                          return <></>;
+                        } else {
+                          return (
+                            <div key={`workout-${i}`}>
+                              <input
+                                type="radio"
+                                id={`workout-radio-${workout.name}`}
+                                value={workout.name}
+                                name="workout-radio-dropdown"
+                                className="mr-2"
+                                selected={selected === workout.name}
+                              />
+                              <label htmlFor={`workout-radio-${workout.name}`}>
+                                {workout.name}
+                              </label>{' '}
+                            </div>
+                            );
+                        }
+                      })}
+                          </fieldset>
                   </div>
                 </div>
               </div>

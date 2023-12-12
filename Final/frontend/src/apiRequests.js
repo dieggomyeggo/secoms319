@@ -1,4 +1,4 @@
-const createUser = async (e, p, u, setUser) => {
+const createUser = async (e, p, u, setUser, setPage) => {
   await fetch('http://localhost:8081/createUser', {
     method: 'POST',
     headers: {
@@ -13,6 +13,8 @@ const createUser = async (e, p, u, setUser) => {
     .then((response) => response.json())
     .then((data) => {
       setUser(data);
+      console.log(data)
+      setPage('browse');
     });
 };
 
@@ -58,6 +60,7 @@ const getWorkout = async (id, setUser, userData) => {
     })
     .then((data) => {
       userData.workouts.push(data);
+      console.log(userData);
       setUser(userData);
     });
 };

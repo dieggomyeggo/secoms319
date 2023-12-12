@@ -33,7 +33,7 @@ app.post('/createUser', async (req, res) => {
     newUser = { ...newUser, workouts: [] }
   }
   let result = await collection.insertOne(newUser)
-  res.send(result).status(204)
+  res.send(newUser).status(204)
 })
 
 /*
