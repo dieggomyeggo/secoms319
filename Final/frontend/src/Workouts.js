@@ -2,17 +2,16 @@ import { useState } from 'react';
 import { deleteWorkout } from './apiRequests';
 import CreateWorkoutModal from './CreateWorkoutModal';
 const Workouts = ({ user, setUser }) => {
-  console.log(user)
   const { workouts } = user;
   const [createWorkoutModal, setCreateWorkoutModal] = useState(false);
 
   const handleDelete = (id) => {
     const newUser = structuredClone(user);
     newUser.workouts = newUser.workouts.filter(
-      (workout) => workout.name != workout.name
+      (workout) => workout._id != workout._id
     );
     setUser(newUser);
-    deleteWorkout(id);
+    deleteWorkout(user, setUser, id);
   };
   return (
     <div>
@@ -40,7 +39,10 @@ const Workouts = ({ user, setUser }) => {
                   <div className="shrink-0 flex flex-row items-center ">
                     <button
                       className="bg-slate-200 hover:bg-slate-300 rounded-md flex gap-x-1 p-1"
-                      onClick={() => handleDelete(workout.id)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleDelete(workout._id);
+                      }}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

@@ -63,7 +63,7 @@ const getWorkout = async (id, setUser, userData) => {
 };
 
 const updateUserWorkout = async (user, workout_ids) => {
-  await fetch(`http://localhost:8081/updateUserWorkout?email=${user.email}`, {
+  await fetch(`http://localhost:8081/updateUserWorkouts?email=${user.email}`, {
     method: 'PUT',
     headers: {
       'content-type': 'application/json',
@@ -71,9 +71,13 @@ const updateUserWorkout = async (user, workout_ids) => {
     body: JSON.stringify({
       workouts: workout_ids,
     }),
-  }).then((res) => {
-    return res.json();
-  });
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      // console.log(data);
+    });
 };
 
 const createWorkout = async (user, setUser, workoutName) => {
@@ -119,19 +123,30 @@ const deleteWorkout = async (user, setUser, workout_id) => {
       'content-type': 'application/json',
     },
   }).then((res) => {
-    const workouts = user.workouts;
-    const newWorkouts = [];
-    for (let i = 0; i < workouts.length; i++) {
-      if (workouts[i]._id !== workout_id) {
-        newWorkouts.push(workouts[i]);
+    const workouts = [];
+    console.log(workout_id)
+    user.workouts.forEach((workout) => {
+      if (typeof workout == 'string') {
+        if (workout !== workout_id) workouts.push(workout);
       }
-    }
-    setUser({ ...user, workouts: newWorkouts });
-    const workout_ids = [];
-    for (let i = 0; i < newWorkouts.length; i++) {
-      workout_ids.push(newWorkouts[i]._id);
-    }
-    updateUserWorkout(user, workout_ids);
+    });
+    console.log(workouts);
+    setUser({ ...user, workouts: workouts });
+    updateUserWorkout(user, workouts);
+
+    return res.json();
+    // const workouts = user.workouts;
+    // const newWorkouts = [];
+    // for (let i = 0; i < workouts.length; i++) {
+    //   if (workouts[i]._id !== workout_id) {
+    //     newWorkouts.push(workouts[i]);
+    //   }
+    // }
+    // setUser({ ...user, workouts: newWorkouts });
+    // const workout_ids = [];
+    // for (let i = 0; i < newWorkouts.length; i++) {
+    //   workout_ids.push(newWorkouts[i]._id);
+    // }
   });
 };
 
