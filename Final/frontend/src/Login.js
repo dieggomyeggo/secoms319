@@ -1,21 +1,31 @@
 //@format
-import { useState } from "react";
-import { login, createUser } from "./apiRequests";
+import { useState, useEffect } from 'react';
+import { login, createUser } from './apiRequests';
 
 export default function Login({ user, setUser, setPage }) {
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [signInSelected, setSignInSelected] = useState(true);
+  const [message, setMessage] = useState('wrong password');
   const handleSubmit = async (e, p) => {
     if (signInSelected) {
-      await login(e, p, user, setUser);
-      setPage("browse");
+      await login(e, p, user, setUser, setPage, setMessage);
     } else {
-      await createUser(e, p, userName, setUser);
-      setPage("browse");
+      await createUser(e, p, userName, setUser, setPage, setMessage);
     }
   };
+
+  const formInvalid = () => {
+    return (
+      email === '' || password === '' || (!signInSelected && userName === '')
+    );
+  };
+
+  useEffect(() => {
+    formInvalid();
+  }, [email, password, userName, message]);
+
   return (
     <div className="flex min-h-full flex-1 flex-col bg-white rounded-lg shadow-xl justify-center md:mt-10 sm:max-w-md xl:p-10 ">
       <div className="text-center">
@@ -23,7 +33,7 @@ export default function Login({ user, setUser, setPage }) {
           onClick={() => setSignInSelected(true)}
           aria-current="page"
           className={`px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 ${
-            signInSelected ? "ring-blue-700 text-blue-700" : ""
+            signInSelected ? 'ring-blue-700 text-blue-700' : ''
           }`}
         >
           Sign in
@@ -31,7 +41,7 @@ export default function Login({ user, setUser, setPage }) {
         <button
           onClick={() => setSignInSelected(false)}
           className={`px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 focus:z-10 ${
-            !signInSelected ? "ring-blue-700 text-blue-700" : ""
+            !signInSelected ? 'ring-blue-700 text-blue-700' : ''
           }`}
         >
           Register
@@ -40,8 +50,8 @@ export default function Login({ user, setUser, setPage }) {
       <div>
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 ">
           {signInSelected
-            ? "Sign in to your account"
-            : "Register for an account "}
+            ? 'Sign in to your account'
+            : 'Register for an account '}
         </h2>
       </div>
 
@@ -84,7 +94,9 @@ export default function Login({ user, setUser, setPage }) {
                 type="email"
                 autoComplete="email"
                 required
-                className="block w-full rounded-lg border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className={`block w-full rounded-lg border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                  message === 'no email' ? 'border-red-500' : ''
+                }`}
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -108,7 +120,9 @@ export default function Login({ user, setUser, setPage }) {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="block w-full rounded-lg border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className={`block w-full rounded-lg border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                  message === 'wrong password' ? 'border-red-500' : ''
+                }`}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -116,10 +130,11 @@ export default function Login({ user, setUser, setPage }) {
 
           <div>
             <button
-              className="flex w-full justify-center rounded-lg bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              // disabled={formInvalid}
+              className={`flex w-full justify-center rounded-lg bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-focus-visible:outline-indigo-600`}
               onClick={() => handleSubmit(email, password)}
             >
-              {signInSelected ? "Sign in" : "Register"}
+              {signInSelected ? 'Sign in' : 'Register'}
             </button>
           </div>
         </form>

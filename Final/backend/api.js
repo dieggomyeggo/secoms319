@@ -51,9 +51,12 @@ app.get('/login', async (req, res) => {
   if (result.password != req.query.password) {
     res.status(400)
     res.send({ message: 'Wrong password' })
+  } else if (!result) {
+    res.status(400)
+    res.send({ message: 'No email was found' })
   } else {
     res.status(200)
-    res.send(result)
+    res.send({ message: 'Ok!', ...result })
   }
 })
 
@@ -74,30 +77,28 @@ app.put('/updateUser/:email', async (req, res) => {
   res.send(result).status(200)
 })
 
-app.put('updateUserWorkouts/', async(req, res) => {
+app.put('/updateUserWorkouts', async (req, res) => {
   let collection = db.collection('users')
   const query = {
     email: req.query.email,
   }
 
   const ids = []
-  console.log("IDS BEFORE", req.body.workouts)
-  for (let i = 0; i < req.body.workouts.size; i++ ) {
+  console.log('IDS BEFORE', req.body.workouts)
+  console.log('ids size', req.body.workouts.length)
+  for (let i = 0; i < req.body.workouts.length; i++) {
+    console.log('id', i)
     ids.push(new ObjectId(req.body.workouts[i]))
   }
-  console.log("IDS AFTER", ids)
+  console.log('IDS AFTER', ids)
 
   const newUser = {
     $set: {
-      workouts: [
-        ...ids,
-      ]
-    }
+      workouts: [...ids],
+    },
   }
   let result = collection.updateOne(query, newUser, null)
   res.send(result).status(200)
-
-
 })
 
 // WORKOUTS
@@ -142,9 +143,9 @@ app.get('/getWorkouts/:id', async (req, res) => {
 app.put('/updateWorkout/:id', async (req, res) => {
   let collection = db.collection('workouts')
 
-  if (req.params.id == "undefined") {
-    res.send({message: "No id provided"}).status(400)
-    return;
+  if (req.params.id == 'undefined') {
+    res.send({ message: 'No id provided' }).status(400)
+    return
   }
   const o_id = new ObjectId(req.params.id)
 
@@ -159,6 +160,26 @@ app.put('/updateWorkout/:id', async (req, res) => {
   res.send(result).status(200)
 })
 
+app.delete('/deleteWorkout/:id', async (req, res) => {
+  let collection = db.collection('workouts')
+  if (req.params.id == 'undefined') {
+    res.send({ message: 'No id provided' }).status(400)
+    return
+  }
+  const o_id = new ObjectId(req.params.id)
+  const query = {
+    _id: o_id,
+  }
+  let result = await collection.deleteOne(query)
+
+  if (result.deletedCount == 0) {
+    res.send({ message: 'No workout found' }).status(404)
+  } else {
+    res.send(result).status(200)
+  }
+
+
+})
 // Similar to what you would expect from most REST APIs, this api endpoint will accept query parameters this way: "/getExercises?muscle=glutes"
 app.get('/getExercises', async (req, res) => {
   const { muscle = '', type = '', name = '' } = req.query
@@ -186,5 +207,4 @@ app.get('/getExercises', async (req, res) => {
     .pipe(res)
 })
 
-app.listen(port, () => {
-})
+app.listen(port, () => { })

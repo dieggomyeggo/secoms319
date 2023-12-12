@@ -19,7 +19,7 @@ const About = () => (
     <div className="p-5 block max-w bg-white border border-gray-200 rounded-lg shadow">
       <img
         className="rounded-full w-96 h-96 p-5"
-        src={"/static/photoDiego.jpg"}
+        src={'/static/photoDiego.jpg'}
         alt="diego"
       />
 
@@ -34,7 +34,7 @@ const About = () => (
     <div className="p-5 block max-w bg-white border border-gray-200 rounded-lg shadow">
       <img
         className="rounded-full w-96 h-96 p-5"
-        src={"/static/photoDuba.jpg"}
+        src={'/static/photoDuba.jpg'}
         alt="duba"
       />
 

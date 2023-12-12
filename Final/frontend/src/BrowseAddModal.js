@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const BrowseAddModal = ({ exercise, setBrowseAddModal, workouts, setUser }) => {
   const [selected, setSelected] = useState(null);
@@ -66,7 +66,7 @@ const BrowseAddModal = ({ exercise, setBrowseAddModal, workouts, setUser }) => {
                           />
                           <label htmlFor={`workout-radio-${workout.name}`}>
                             {workout.name}
-                          </label>{" "}
+                          </label>{' '}
                         </div>
                       ))}
                     </fieldset>
@@ -92,7 +92,10 @@ const BrowseAddModal = ({ exercise, setBrowseAddModal, workouts, setUser }) => {
                       }
                       return workout;
                     });
-                    return { ...prev, workouts: newWorkouts };
+                    return {
+                      ...prev,
+                      workouts: newWorkouts,
+                    };
                   });
                   setBrowseAddModal(null);
                 }}

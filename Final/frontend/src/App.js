@@ -1,25 +1,25 @@
-import { useState, useEffect } from "react";
-import Browse from "./Browse";
-import Login from "./Login";
-import Workouts from "./Workouts";
-import About from "./About";
+import { useState, useEffect } from 'react';
+import Browse from './Browse';
+import Login from './Login';
+import Workouts from './Workouts';
+import About from './About';
 
 function App() {
-  const [page, setPage] = useState("browse");
-  // TODO login / register to get user object
+  const [page, setPage] = useState('browse');
   const [user, setUser] = useState(null);
 
   // Saves workouts in database when user workouts changes
   useEffect(() => {
     if (!user) return;
-    console.log(user)
     for (let i in user.workouts) {
-      fetch("http://localhost:8081/updateWorkout/" + user.workouts[i]._id, {
-        method: "PUT",
+      fetch('http://localhost:8081/updateWorkout/' + user.workouts[i]._id, {
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ exercises: user.workouts[i].exercises }),
+        body: JSON.stringify({
+          exercises: user.workouts[i].exercises,
+        }),
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,7 +27,7 @@ function App() {
 
   const logout = () => {
     setUser(null);
-    setPage("browse");
+    setPage('browse');
   };
 
   return (
@@ -45,7 +45,7 @@ function App() {
               <li>
                 <span
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 hover:cursor-pointer"
-                  onClick={() => setPage("browse")}
+                  onClick={() => setPage('browse')}
                 >
                   Browse Exercises
                 </span>
@@ -54,7 +54,7 @@ function App() {
                 <li>
                   <span
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 hover:cursor-pointer"
-                    onClick={() => setPage("my-workouts")}
+                    onClick={() => setPage('my-workouts')}
                   >
                     My Workouts
                   </span>
@@ -63,7 +63,7 @@ function App() {
               <li>
                 <span
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 hover:cursor-pointer"
-                  onClick={() => setPage("about")}
+                  onClick={() => setPage('about')}
                 >
                   Student Information
                 </span>
@@ -79,7 +79,7 @@ function App() {
                 ) : (
                   <span
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 hover:cursor-pointer"
-                    onClick={() => setPage("login-register")}
+                    onClick={() => setPage('login-register')}
                   >
                     Login / Register
                   </span>
@@ -90,12 +90,12 @@ function App() {
         </div>
       </nav>
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        {page === "browse" && <Browse user={user} setUser={setUser} />}
-        {page === "my-workouts" && <Workouts user={user} setUser={setUser} />}
-        {page === "login-register" && (
+        {page === 'browse' && <Browse user={user} setUser={setUser} />}
+        {page === 'my-workouts' && <Workouts user={user} setUser={setUser} />}
+        {page === 'login-register' && (
           <Login user={user} setUser={setUser} setPage={setPage} />
         )}
-        {page === "about" && <About />}
+        {page === 'about' && <About />}
       </div>
     </div>
   );

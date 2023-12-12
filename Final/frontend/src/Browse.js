@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from "react";
-import BrowseAddModal from "./BrowseAddModal.js";
+import React, { useState, useEffect } from 'react';
+import BrowseAddModal from './BrowseAddModal.js';
 
 const exerciseTypeOptions = [
-  { name: "Any Exercise Type", id: "" },
-  { name: "Cardio", id: "cardio" },
-  { name: "Olympic Weightlifting", id: "olympic_weightlifting" },
-  { name: "Plyometrics", id: "plyometrics" },
-  { name: "Powerlifting", id: "powerlifting" },
-  { name: "Strength", id: "strength" },
-  { name: "Stretching", id: "stretching" },
-  { name: "Strongman", id: "strongman" },
+  { name: 'Any Exercise Type', id: '' },
+  { name: 'Cardio', id: 'cardio' },
+  { name: 'Olympic Weightlifting', id: 'olympic_weightlifting' },
+  { name: 'Plyometrics', id: 'plyometrics' },
+  { name: 'Powerlifting', id: 'powerlifting' },
+  { name: 'Strength', id: 'strength' },
+  { name: 'Stretching', id: 'stretching' },
+  { name: 'Strongman', id: 'strongman' },
 ];
 
 const muscleGroupOptions = [
-  { name: "Any Muscle Group", id: "" },
-  { name: "Abdominals", id: "abdominals" },
-  { name: "Abductors", id: "abductors" },
-  { name: "Adductors", id: "adductors" },
-  { name: "Biceps", id: "biceps" },
-  { name: "Calves", id: "calves" },
-  { name: "Chest", id: "chest" },
-  { name: "Forearms", id: "forearms" },
-  { name: "Glutes", id: "glutes" },
-  { name: "Hamstrings", id: "hamstrings" },
-  { name: "Lats", id: "lats" },
-  { name: "Lower back", id: "lower_back" },
-  { name: "Middle back", id: "middle_back" },
-  { name: "Neck", id: "neck" },
-  { name: "Quadriceps", id: "quadriceps" },
-  { name: "Traps", id: "traps" },
-  { name: "Triceps", id: "triceps" },
-  { name: "Shoulders", id: "shoulders" },
+  { name: 'Any Muscle Group', id: '' },
+  { name: 'Abdominals', id: 'abdominals' },
+  { name: 'Abductors', id: 'abductors' },
+  { name: 'Adductors', id: 'adductors' },
+  { name: 'Biceps', id: 'biceps' },
+  { name: 'Calves', id: 'calves' },
+  { name: 'Chest', id: 'chest' },
+  { name: 'Forearms', id: 'forearms' },
+  { name: 'Glutes', id: 'glutes' },
+  { name: 'Hamstrings', id: 'hamstrings' },
+  { name: 'Lats', id: 'lats' },
+  { name: 'Lower back', id: 'lower_back' },
+  { name: 'Middle back', id: 'middle_back' },
+  { name: 'Neck', id: 'neck' },
+  { name: 'Quadriceps', id: 'quadriceps' },
+  { name: 'Traps', id: 'traps' },
+  { name: 'Triceps', id: 'triceps' },
+  { name: 'Shoulders', id: 'shoulders' },
 ];
 
 const Browse = ({ user, setUser }) => {
   const [exerciseType, setExerciseType] = useState(exerciseTypeOptions[0].id);
   const [muscleGroup, setMuscleGroup] = useState(muscleGroupOptions[0].id);
-  const [exerciseName, setExerciseName] = useState("");
+  const [exerciseName, setExerciseName] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [browseAddModalExercise, setBrowseAddModalExercise] = useState(null);
 
@@ -83,7 +83,7 @@ const Browse = ({ user, setUser }) => {
               }}
             >
               {exerciseTypeOptions.map(({ name, id }, i) => (
-                <option key={"exerciseTypeOption-" + id} value={id}>
+                <option key={'exerciseTypeOption-' + id} value={id}>
                   {name}
                 </option>
               ))}
@@ -97,7 +97,7 @@ const Browse = ({ user, setUser }) => {
               }}
             >
               {muscleGroupOptions.map(({ name, id }, i) => (
-                <option key={"muscleGroupOption-" + id} value={id}>
+                <option key={'muscleGroupOption-' + id} value={id}>
                   {name}
                 </option>
               ))}
@@ -136,7 +136,7 @@ const Browse = ({ user, setUser }) => {
       </div>
       <ul className="divide-y divide-gray-300">
         {searchResults.map((exercise, i) => (
-          <li key={"search-result-" + i} className="py-5">
+          <li key={'search-result-' + i} className="py-5">
             <div className="flex justify-between gap-x-6">
               <div className="min-w-0 flex-auto">
                 <p className="text font-semibold leading-6 text-gray-900">
@@ -149,7 +149,7 @@ const Browse = ({ user, setUser }) => {
                       (option) => option.id === exercise.type,
                     )[0].name
                   }
-                  ,{" "}
+                  ,{' '}
                   {
                     muscleGroupOptions.filter(
                       (option) => option.id === exercise.muscle,
@@ -177,7 +177,7 @@ const Browse = ({ user, setUser }) => {
                       d="M12 4.5v15m7.5-7.5h-15"
                     />
                   </svg>
-                  {user === null ? "Login to add to workout" : "Add to workout"}
+                  {user === null ? 'Login to add to workout' : 'Add to workout'}
                 </button>
               </div>
             </div>
