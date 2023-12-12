@@ -48,12 +48,12 @@ app.get('/login', async (req, res) => {
 
   let result = await collection.findOne(queryForEmail)
 
-  if (result.password != req.query.password) {
+  if (!result) {
     res.status(400)
-    res.send({ message: 'Wrong password' })
-  } else if (!result) {
+    res.send({ message: 'no email' })
+  } else if (result.password != req.query.password) {
     res.status(400)
-    res.send({ message: 'No email was found' })
+    res.send({ message: 'wrong password' })
   } else {
     res.status(200)
     res.send({ message: 'Ok!', ...result })

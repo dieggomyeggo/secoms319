@@ -7,7 +7,7 @@ export default function Login({ user, setUser, setPage }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signInSelected, setSignInSelected] = useState(true);
-  const [message, setMessage] = useState('wrong password');
+  const [message, setMessage] = useState('');
   const handleSubmit = async () => {
     if (signInSelected) {
       await login(email, password, user, setUser, setPage, setMessage);
@@ -56,7 +56,7 @@ export default function Login({ user, setUser, setPage }) {
     return true;
   }
 
-    const formInvalid = () => {
+  const formInvalid = () => {
     return (
       !validateEmail(email) ||
       password === '' ||
@@ -65,8 +65,12 @@ export default function Login({ user, setUser, setPage }) {
   };
 
   useEffect(() => {
+    if (message != ''){
+      setMessage('');
+    }
+    
     formInvalid();
-  }, [email, password, userName, message]);
+  }, [email, password, userName]);
 
   return (
     <div className="flex min-h-full flex-1 flex-col bg-white rounded-lg shadow-xl justify-center md:mt-10 sm:max-w-md xl:p-10 ">
@@ -112,9 +116,11 @@ export default function Login({ user, setUser, setPage }) {
                   type="username"
                   autoComplete="username"
                   required
-                  className="block w-full rounded-lg border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className={`block w-full rounded-lg border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${message.toLowerCase() === 'wrong password'
+                      ? 'border-red-500'
+                      : ''
+                    }`}
                   onChange={(e) => {
-                    console.log(userName);
                     setUserName(e.target.value);
                   }}
                 />
@@ -135,62 +141,73 @@ export default function Login({ user, setUser, setPage }) {
                 type="email"
                 autoComplete="email"
                 required
-                className={`block w-full rounded-lg border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${message === 'no email' ? 'border-red-500' : ''
-                  }`}
+                className={`blick w-full rounded-lg${message.includes('email')
+                    ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+                    : 'border-0 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 '
+                  }  text-sm rounded-lg `}
                 onChange={(e) => {
-                  console.log(email);
                   setEmail(e.target.value);
                 }}
               />
-            </div>
+            
+            <p hidden={!message.includes('email')} className="text-red-500 text-xs italic">
+                Please enter a valid email.
+            </p>
           </div>
+      </div>
 
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900 "
-              >
-                Password
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className={`block w-full rounded-lg border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${message === 'wrong password' ? 'border-red-500' : ''
-                  }`}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  console.log(password);
-                }}
-              />
-            </div>
-          </div>
+      <div>
+        <div className="flex items-center justify-between">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium leading-6 text-gray-900 "
+          >
+            Password
+          </label>
+        </div>
+        <div className="mt-2">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            required
+            className={`blick w-full rounded-lg${message.includes('password')
+                ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+                : 'border-0 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 '
+              }  text-sm rounded-lg `}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+            <p hidden={!message.includes('password')} className="text-red-500 text-xs italic">
+                Wrong password.
+            </p>
+        </div>
+      </div>
 
-          <div>
-            <button
-              disabled={formInvalid()}
-              className={`${formInvalid() ? 'bg-red-600' : 'bg-indigo-600'} flex w-full justify-center rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:${formInvalid() ? 'bg-red-500' : 'bg-indigo-500'} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-focus-visible:outline-indigo-600`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleSubmit();
-              }}
-            >
-              {signInSelected ? 'Sign in' : 'Register'}
-            </button>
-          </div>
-        </form>
+      <div>
+        <button
+          disabled={formInvalid()}
+          className={`${formInvalid() ? 'bg-red-600' : 'bg-indigo-600'
+            } flex w-full justify-center rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:${formInvalid() ? 'bg-red-500' : 'bg-indigo-500'
+            } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-focus-visible:outline-indigo-600`}
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
+          {signInSelected ? 'Sign in' : 'Register'}
+        </button>
+      </div>
+    </form>
 
-        {/* <p className="mt-10 text-center text-sm text-gray-500"> */}
-        {/*   Not a member?{' '} */}
-        {/*   <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"> */}
-        {/*     Start a 14 day free trial */}
-        {/*   </a> */}
-        {/* </p> */}
+        {/* <p className="mt-10 text-center text-sm text-gray-500"> */ }
+  {/*   Not a member?{' '} */ }
+  {/*   <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"> */ }
+  {/*     Start a 14 day free trial */ }
+  {/*   </a> */ }
+  {/* </p> */ }
       </div >
     </div >
   );

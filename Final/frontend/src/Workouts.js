@@ -7,11 +7,9 @@ const Workouts = ({ user, setUser }) => {
 
   const handleDelete = (id) => {
     const newUser = structuredClone(user);
-    console.log(newUser.workouts);
     newUser.workouts = newUser.workouts.filter(
       (workout) => workout._id !== id
     );
-    console.log(newUser)
     setUser(newUser);
     deleteWorkout(user, setUser, id);
   };

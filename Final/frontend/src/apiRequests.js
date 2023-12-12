@@ -35,14 +35,18 @@ const login = async (e, p, user, setUser, setPage, setMessage) => {
       return response.json();
     })
     .then((data) => {
-      if (data.message === 'Wrong password') {
+      if (data.message != 'Ok!') {
         setMessage(data.message);
-      } else if (data.message === 'No email was found') {
-        setMessage(data.message);
-      } else {
-        data.workouts.forEach((id) => {
-          getWorkout(id, setUser, data);
-        });
+      }
+      else {
+        if (data.workouts.length == 0) {
+          setUser(data);
+        } else {
+          data.workouts.forEach((id) => {
+            getWorkout(id, setUser, data);
+          });
+
+        }
         setPage('browse');
       }
     });
@@ -60,7 +64,6 @@ const getWorkout = async (id, setUser, userData) => {
     })
     .then((data) => {
       userData.workouts.push(data);
-      console.log(userData);
       setUser(userData);
     });
 };
@@ -79,7 +82,6 @@ const updateUserWorkout = async (user, workout_ids) => {
       return res.json();
     })
     .then((data) => {
-      // console.log(data);
     });
 };
 
@@ -140,7 +142,6 @@ const deleteWorkout = async (user, setUser, workout_id) => {
         if (workout !== workout_id) workouts.push(workout);
       }
     });
-    console.log(workouts);
     updateUserWorkout(user, workouts);
 
     return res.json();
