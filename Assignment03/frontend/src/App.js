@@ -81,8 +81,8 @@ function App() {
         {page === 'about' && <About />}
         {page === 'read' && <Read products={products} />}
         {page === 'create' && <Create setPage={setPage} />}
-        {page === 'delete' && <Delete />}
-        {page === 'update' && <Update />}
+        {page === 'delete' && <Delete products={products} />}
+        {page === 'update' && <Update products={products} />}
       </div>
     </div>
   )

@@ -14,9 +14,30 @@ const createProduct = async (product, setProducts) => {
     headers: {
       'content-type': 'application/json',
     },
-    body: JSON.stringify({...product, image: '../../images/no_image.jpg'})
+    body: JSON.stringify({ ...product, image: '../../images/no_image.jpg' }),
   })
-  .then((response) => response.json())
-  .then((data) => console.log(data))
+    .then((response) => response.json())
+    .then((data) => console.log(data))
 }
-export {getAllProducts, createProduct}
+
+const deleteProduct = async (id) => {
+  await fetch('http://localhost:8081/deleteProduct', {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ id: id }),
+  })
+}
+
+const updateProductPrice = async (id, price) => {
+  await fetch('http://localhost:8081/updatePrice', {
+    method: 'PUT',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ id: id, price: price }),
+  })
+}
+
+export { getAllProducts, createProduct, deleteProduct, updateProductPrice }
