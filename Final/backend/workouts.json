@@ -1,0 +1,6 @@
+{"_id":{"$oid":"6563b31ea88d817238af2e43"},"name":"Chest Day","exercises":[{"name":"Bench Press","sets":3,"reps":12},{"name":"Chest Flies","sets":3,"reps":15},{"name":"Dumbbell Bench Press","sets":5,"reps":5,"weight":76},{"name":"Pushups","sets":4,"reps":15,"weight":0}]}
+{"_id":{"$oid":"65753bf4550ff19f5ced22cf"},"exercises":[]}
+{"_id":{"$oid":"6577bc3587d3ba5048c52c60"},"name":"live","exercises":[{"name":"Piriformis SMR","sets":2,"reps":5,"weight":10},{"name":"Tricep Side Stretch","sets":5,"reps":10,"weight":0}]}
+{"_id":{"$oid":"6577bf6987d3ba5048c52c61"},"name":"Chest Day","exercises":[{"name":"Board bench press","sets":3,"reps":5,"weight":225},{"name":"Dumbbell Bench Press","sets":3,"reps":15,"weight":80},{"name":"Pushups","sets":1,"reps":100,"weight":0}]}
+{"_id":{"$oid":"6577c3219ab9ceb35317fd01"},"name":"Chest","exercises":[{"name":"Chest dip","sets":5,"reps":15,"weight":0},{"name":"Barbell Bench Press - Medium Grip","sets":5,"reps":15,"weight":0},{"name":"Dumbbell Flyes","sets":5,"reps":15,"weight":0}]}
+{"_id":{"$oid":"6577d0a76b767a30690fad6f"},"name":"Leg Day","exercises":[{"name":"Barbell glute bridge","sets":0,"reps":0,"weight":0},{"name":"HM Running in Place","sets":0,"reps":0,"weight":0},{"name":"Barbell Deadlift","sets":0,"reps":0,"weight":0}]}
