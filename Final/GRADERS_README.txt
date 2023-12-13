@@ -1,13 +1,12 @@
 Let us (jduba@iastate.edu, joceo@iastate.edu) know if you are having trouble setting up the project.
 
 Setting up DB:
-- In MongoDB, create a database called `final` and a collection called `users`.
-- Import backend/final.users.json to `users` collection.
+- In MongoDB, create a database called `final`
+    - Create a collection called `users`.
+    - Create a collection called `workouts`.
 
 Running:
 - Run `npm install` in both the `backend` and `frontend` directories.
 - Run `npm start` in both the `backend` and `frontend` directories.
 
-Note:
-- There is only one user at the moment, login functionality will be added before the final project is due.
-- You cannot delete or create new workouts, but you can edit them.
+Enjoy! :)
